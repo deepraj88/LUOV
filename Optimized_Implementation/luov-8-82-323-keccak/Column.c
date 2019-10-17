@@ -46,7 +46,7 @@ void random_column(Sponge *sponge , column *BC) {
 	for(i=0 ; i<COLUMN_COMPONENTS-1 ; i++){
 		squeezeuint64_t(sponge,8,&BC->components[i]);
 	}
-	squeezeuint64_t(sponge,((OIL_VARS%64)+7)/8,&BC->components[COLUMN_COMPONENTS-1] ); 
+	squeezeuint64_t(sponge,((OIL_VARS%64)+7)/8,&BC->components[COLUMN_COMPONENTS-1] );
 }
 
 /*

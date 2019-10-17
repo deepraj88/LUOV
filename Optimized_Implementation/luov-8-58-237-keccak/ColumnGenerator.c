@@ -23,7 +23,7 @@ column Next_Column(ColumnGenerator *col_gen){
 
 	#if (OIL_VARS <= 64) 
 		column Out = 0;
-		for(i=0; i<STATES; i++){
+		Next_Column_label6:for(i=0; i<STATES; i++){
 			Out |= ((column)col_gen->blocks[i][col_gen->cols_used*2    ]) << 16*i;
 			Out |= ((column)col_gen->blocks[i][col_gen->cols_used*2 + 1]) << 16*i+8;
 		}

@@ -14,13 +14,13 @@
 typedef struct {
 	int rows;
 	int cols;
-	FELT** array;
+	FELT array[OIL_VARS][(((OIL_VARS+7)/8)*8) + 1];
 } Matrix;
 
 Matrix zeroMatrix(unsigned int rows, unsigned int cols);
 void destroy_matrix(Matrix mat);
 void printMatrix(Matrix Mat);
-int getUniqueSolution(Matrix A, FELT *solution);
+int getUniqueSolution(Matrix *A, FELT *solution);
 int getInverse(Matrix *A, Matrix *A_inv);
 
 #endif

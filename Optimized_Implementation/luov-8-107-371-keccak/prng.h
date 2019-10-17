@@ -3,7 +3,8 @@
 
 #include "parameters.h"
 #include <stdlib.h>
-#include <libkeccak.a.headers/KeccakHash.h>
+//#include <libkeccak.a.headers/KeccakHash.h>
+#include "../../XKCP/lib/high/Keccak/FIPS202/KeccakHash.h"
 #include "buffer.h"
 #include "LinearAlgebra.h"
 

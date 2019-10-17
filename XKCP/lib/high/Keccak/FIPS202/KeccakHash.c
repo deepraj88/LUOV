@@ -62,10 +62,10 @@ HashReturn Keccak_HashUpdate(Keccak_HashInstance *instance, const BitSequence *d
 HashReturn Keccak_HashFinal(Keccak_HashInstance *instance, BitSequence *hashval)
 {
     HashReturn ret = (HashReturn)KeccakWidth1600_SpongeAbsorbLastFewBits(&instance->sponge, instance->delimitedSuffix);
-    if (ret == SUCCESS)
+    /*if (ret == SUCCESS)
         return (HashReturn)KeccakWidth1600_SpongeSqueeze(&instance->sponge, hashval, instance->fixedOutputLength/8);
     else
-        return ret;
+        return ret;*/
 }
 
 /* ---------------------------------------------------------------- */

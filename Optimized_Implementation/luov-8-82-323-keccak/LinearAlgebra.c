@@ -12,6 +12,7 @@
 
 	returns : The new matrix
 */
+#if 0
 Matrix newMatrix(unsigned int rows, unsigned int cols) {
 	unsigned int i;
 	Matrix new;
@@ -42,7 +43,6 @@ Matrix zeroMatrix(unsigned int rows, unsigned int cols) {
 	}
 	return newMat;
 }
-
 /*
 	Free the memory of a matrix
 
@@ -55,6 +55,7 @@ void destroy_matrix(Matrix mat) {
 	}
 	free(mat.array);
 }
+#endif
 
 /*
 	Prints a matrix
@@ -76,10 +77,18 @@ void printMatrix(Matrix Mat) {
 	A : A matrix
 	row1 , row2 : The rows of A that have to be swapped
 */
-void swapRows(Matrix A, int row1, int row2) {
-	FELT *temp = A.array[row1];
+void swapRows(Matrix *A, int row1, int row2) {
+	int loop;
+	FELT temp;
+	for(loop=0;loop<A->cols;loop++) {
+		temp = A->array[row1][loop];
+		A->array[row1][loop] = A->array[row2][loop];
+		A->array[row2][loop] = temp;
+
+	}
+	/*FELT *temp = A.array[row1];
 	A.array[row1] = A.array[row2];
-	A.array[row2] = temp;
+	A.array[row2] = temp;*/
 }
 
 /*
@@ -89,10 +98,10 @@ void swapRows(Matrix A, int row1, int row2) {
 	row : the index of the row that has to be rescaled
 	a : A field element
 */
-void scaleRow(Matrix A, int row, FELT a) {
+void scaleRow(Matrix *A, int row, FELT a) {
 	int i;
-	for (i = 0; i < A.cols; i++) {
-		A.array[row][i] = multiply(a,A.array[row][i]);
+	for (i = 0; i < A->cols; i++) {
+		A->array[row][i] = multiply(a,A->array[row][i]);
 	}
 }
 
@@ -105,17 +114,17 @@ void scaleRow(Matrix A, int row, FELT a) {
 	constant : The contant that sourcerow is multiplied with
 	offset : Only the entries in columns with index larger than or equal to offset are affected
 */
-void rowOp(Matrix A, int destrow, int sourcerow, FELT constant, int offset)
+void rowOp(Matrix *A, int destrow, int sourcerow, FELT constant, int offset)
 {
 	int j;
 	FELT T;
 	if (isEqual(constant, ZERO))
 		return;
 
-	for (j = offset; j < A.cols; ++j)
+	for (j = offset; j < A->cols; ++j)
 	{
-		T = multiply(constant,A.array[sourcerow][j]);
-		addInPlace(&A.array[destrow][j],&T);
+		T = multiply(constant,A->array[sourcerow][j]);
+		addInPlace(&A->array[destrow][j],&T);
 	}
 }
 
@@ -126,15 +135,15 @@ void rowOp(Matrix A, int destrow, int sourcerow, FELT constant, int offset)
 
 	returns : The rank ok the first part of the row echelon form of A
 */
-int rowEchelonAugmented(Matrix A)
+int rowEchelonAugmented(Matrix *A)
 {
 	int i,col;
 	int row = 0;
-	for (col = 0; col < A.cols - 1; ++col)
+	for (col = 0; col < A->cols - 1; ++col)
 	{
-		for (i = row; i < A.rows; ++i)
+		for (i = row; i < A->rows; ++i)
 		{
-			if (!isEqual(A.array[i][col], ZERO))
+			if (!isEqual(A->array[i][col], ZERO))
 			{
 				if (i != row)
 				{
@@ -144,21 +153,21 @@ int rowEchelonAugmented(Matrix A)
 			}
 		}
 
-		if (i == A.rows)
+		if (i == A->rows)
 		{
 			continue;
 		}
 
-		scaleRow(A, row, inverse(A.array[row][col]));
+		scaleRow(A, row, inverse(A->array[row][col]));
 
-		for (i++; i < A.rows; ++i)
+		for (i++; i < A->rows; ++i)
 		{
-			rowOp(A, i, row, minus(A.array[i][col]), col);
+			rowOp(A, i, row, minus(A->array[i][col]), col);
 		}
 
 		row++;
 
-		if (row == A.rows)
+		if (row == A->rows)
 		{
 			break;
 		}
@@ -174,36 +183,37 @@ int rowEchelonAugmented(Matrix A)
 
 	returns : 1 if a unique solution exists, 0 otherwise 
 */
-int getUniqueSolution(Matrix A, FELT *solution) {
+int getUniqueSolution(Matrix *A, FELT *solution) {
 	int i,j,col,row;
 	FELT T;
 	int rank = rowEchelonAugmented(A);
+//	printAugmentedMatrix(A);
 
-	if (rank != A.rows) {
+	if (rank != A->rows) {
 		return 0;
 	}
 
 	/* clear memory for solution */
-    for (i = 0 ; i< A.cols-1 ; i++){
+    for (i = 0 ; i< A->cols-1 ; i++){
     	solution[i] = ZERO;
     }
 
-	for (row = A.rows - 1; row >= 0; row--) {
+	for (row = A->rows - 1; row >= 0; row--) {
 		col = row;
-		while (isEqual(A.array[row][col], ZERO))
+		while (isEqual(A->array[row][col], ZERO))
 		{
 			col++;
 		}
 
-		solution[col] = A.array[row][A.cols - 1];
-		for (j = col + 1; j < A.cols - 1; j++) {
-			T = multiply(solution[j], A.array[row][j]);
+		solution[col] = A->array[row][A->cols - 1];
+		for (j = col + 1; j < A->cols - 1; j++) {
+			T = multiply(solution[j], A->array[row][j]);
 			solution[col] = subtract(solution[col],T);
 		}
 	}
 	return 1;
 }
-
+#if 0
 int getInverse(Matrix *A, Matrix *A_inv){
 	int i,j;
 	*A_inv = zeroMatrix(A->rows,A->rows);
@@ -268,3 +278,4 @@ int getInverse(Matrix *A, Matrix *A_inv){
 
 	return 1;
 }
+#endif

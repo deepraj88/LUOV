@@ -29,12 +29,12 @@ column Next_Column(ColumnGenerator *col_gen){
 		}
 	#else
 		column Out = {0};
-		for(i=0; i<4; i++){
+		Next_Column_label7:for(i=0; i<4; i++){
 			Out.components[0] |= ((uint64_t)col_gen->blocks[i][col_gen->cols_used*2    ]) << 16*i;
 			Out.components[0] |= ((uint64_t)col_gen->blocks[i][col_gen->cols_used*2 + 1]) << 16*i+8;
 		}
 
-		for(; i<STATES; i++){
+		Next_Column_label8:for(; i<STATES; i++){
 			Out.components[1] |= ((uint64_t)col_gen->blocks[i][col_gen->cols_used*2 + 0]) << 16*(i-4);
 			Out.components[1] |= ((uint64_t)col_gen->blocks[i][col_gen->cols_used*2 + 1]) << 16*(i-4)+8;
 		}

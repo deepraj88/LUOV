@@ -6,7 +6,7 @@
 #define COLUMN_H
 
 #include <stdint.h>
-#include <libkeccak.a.headers/KeccakSpongeWidth1600.h>
+//#include <libkeccak.a.headers/KeccakSpongeWidth1600.h>
 #include "buffer.h"
 #include "prng.h"
 #include "parameters.h"

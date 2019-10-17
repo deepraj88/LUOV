@@ -1,0 +1,67 @@
+<AutoPilot:ProjectResources xmlns:AutoPilot="com.autoesl.autopilot.ui.directiveView">
+    <sourceFile name="">
+        <directive functionName="KeccakP1600_AddLanes" label="" functionLabel="">
+            <pragma name="ALLOCATION">
+                <option name="instances" value="KeccakP1600_AddLanes" positionalBoolean="4"/>
+                <option name="limit" value="1"/>
+                <option name="function" value="" positionalBoolean="type"/>
+            </pragma>
+        </directive>
+        <directive functionName="KeccakP1600_AddLanes" label="" functionLabel="">
+            <pragma name="INLINE"/>
+        </directive>
+        <directive functionName="KeccakP1600_AddBytesInLane" label="" functionLabel="">
+            <pragma name="ALLOCATION">
+                <option name="instances" value="KeccakP1600_AddBytesInLane" positionalBoolean="4"/>
+                <option name="limit" value="1"/>
+                <option name="function" value="" positionalBoolean="type"/>
+            </pragma>
+        </directive>
+        <directive functionName="KeccakP1600_AddBytesInLane" label="" functionLabel="">
+            <pragma name="INLINE"/>
+        </directive>
+        <directive functionName="KeccakP1600_ExtractBytesInLane" label="" functionLabel="">
+            <pragma name="ALLOCATION">
+                <option name="instances" value="KeccakP1600_ExtractBytesInLane" positionalBoolean="4"/>
+                <option name="limit" value="1"/>
+                <option name="function" value="" positionalBoolean="type"/>
+            </pragma>
+        </directive>
+        <directive functionName="KeccakP1600_ExtractBytesInLane" label="" functionLabel="">
+            <pragma name="INLINE"/>
+        </directive>
+        <directive functionName="Next_Column" label="Next_Column_label2" functionLabel="">
+            <pragma name="UNROLL">
+                <option name="factor" value="128"/>
+            </pragma>
+        </directive>
+        <directive functionName="Next_Column" label="Next_Column_label2" functionLabel="">
+            <pragma name="PIPELINE"/>
+        </directive>
+        <directive functionName="Next_Column" label="Next_Column_label3" functionLabel="">
+            <pragma name="UNROLL">
+                <option name="factor" value="128"/>
+            </pragma>
+        </directive>
+        <directive functionName="Next_Column" label="Next_Column_label3" functionLabel="">
+            <pragma name="PIPELINE"/>
+        </directive>
+        <directive functionName="crypto_sign" label="crypto_sign_label4" functionLabel="">
+            <pragma name="UNROLL">
+                <option name="factor" value="128"/>
+            </pragma>
+        </directive>
+        <directive functionName="crypto_sign" label="crypto_sign_label4" functionLabel="">
+            <pragma name="PIPELINE"/>
+        </directive>
+        <directive functionName="solvePrivateUOVSystem" label="solvePrivateUOVSystem_label5" functionLabel="">
+            <pragma name="UNROLL">
+                <option name="factor" value="128"/>
+            </pragma>
+        </directive>
+        <directive functionName="solvePrivateUOVSystem" label="solvePrivateUOVSystem_label5" functionLabel="">
+            <pragma name="PIPELINE"/>
+        </directive>
+    </sourceFile>
+</AutoPilot:ProjectResources>
+

@@ -1,5 +1,5 @@
 #include "intermediateValues.h"
-
+#define KAT
 void printVinegarValues(FELT *vinegar){
 	#ifdef KAT
 		int i,j;

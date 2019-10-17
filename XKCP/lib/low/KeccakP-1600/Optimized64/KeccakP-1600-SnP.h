@@ -18,8 +18,8 @@ Please refer to SnP-documentation.h for more details.
 #ifndef _KeccakP_1600_SnP_h_
 #define _KeccakP_1600_SnP_h_
 
-#include "brg_endian.h"
-#include "KeccakP-1600-opt64-config.h"
+#include "../../../common/brg_endian.h"
+#include "../../KeccakP-1600/Optimized64/LCu6/KeccakP-1600-opt64-config.h"
 
 #define KeccakP1600_implementation      "generic 64-bit optimized implementation (" KeccakP1600_implementation_config ")"
 #define KeccakP1600_stateSizeInBytes    200

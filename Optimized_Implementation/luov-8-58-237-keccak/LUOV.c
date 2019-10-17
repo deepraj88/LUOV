@@ -1,5 +1,5 @@
 #include "LUOV.h"
-
+//#define DEBUG
 uint64_t expandTable(unsigned char a)
 {
 	static const uint64_t eT[256] =
@@ -233,8 +233,16 @@ switch(in&15){ \
 #if FIELD_SIZE == 8
 	void _addScalarProduct1(FELT *V, FELT a, uint64_t b, int bits) {
 		int i; 
-		for (i = 0; i < (bits+7)/8; i++) { 
-			((uint64_t*)V)[i] ^= expandTable(b & 255 ) & repeatTable(a); 
+		_addScalarProduct1_label7:for (i = 0; i < (bits+7)/8; i++) {
+			//((uint64_t*)V)[i] ^= expandTable(b & 255 ) & repeatTable(a);
+			V[8*i  ] = V[8*i  ] ^ ((expandTable(b & 255 ) & repeatTable(a)) & 0xFF);
+			V[8*i+1] = V[8*i+1] ^ (((expandTable(b & 255 ) & repeatTable(a)) & 0xFF00) >> 8);
+			V[8*i+2] = V[8*i+2] ^ (((expandTable(b & 255 ) & repeatTable(a)) & 0xFF0000) >> 16);
+			V[8*i+3] = V[8*i+3] ^ (((expandTable(b & 255 ) & repeatTable(a)) & 0xFF000000) >> 24);
+			V[8*i+4] = V[8*i+4] ^ (((expandTable(b & 255 ) & repeatTable(a)) & 0xFF00000000) >> 32);
+			V[8*i+5] = V[8*i+5] ^ (((expandTable(b & 255 ) & repeatTable(a)) & 0xFF0000000000) >> 40);
+			V[8*i+6] = V[8*i+6] ^ (((expandTable(b & 255 ) & repeatTable(a)) & 0xFF000000000000) >> 48);
+			V[8*i+7] = V[8*i+7] ^ (((expandTable(b & 255 ) & repeatTable(a)) & 0xFF00000000000000) >> 56);
 			b >>= 8; 
 		}
 	}
@@ -308,7 +316,7 @@ void addScalarProduct3(FELT* V1, FELT a1, FELT *V2, FELT a2, FELT *V3, FELT a3, 
 */
 void calculateQ2(column *T , unsigned char *pk) {
 	int i, j, k;
-	column *TempMat = malloc(sizeof(column) * ((OIL_VARS+3)/4)*4);
+	column TempMat[((OIL_VARS+3)/4)*4];
 	column r;
 	uint64_t t;
 
@@ -317,15 +325,15 @@ void calculateQ2(column *T , unsigned char *pk) {
 	ColumnGenerator_init(&CG, PK_SEED(pk));
 
 	// Calculate P_i,3 = Transpose(T)*TempMat_i, and store the result in Q_2
-	column **temp;
-	temp = malloc(sizeof(column*)*OIL_VARS);
+	column temp[OIL_VARS][((OIL_VARS+3)/4)*4]={0};
+	/*temp = malloc(sizeof(column*)*OIL_VARS);
 	for(i=0 ; i<OIL_VARS ; i++){
 		temp[i] = calloc(((OIL_VARS+3)/4)*4,sizeof(column));
-	}
+	}*/
 
 	// Simultaneously calculate P_i,1*T + P_i,2 for all i from 1 to OIL_VARS
 	for (i = 0; i <= VINEGAR_VARS; i++) {
-		for (j = 0; j < OIL_VARS; j++) {
+		calculateQ2_label10:for (j = 0; j < OIL_VARS; j++) {
 			TempMat[j] = empty;
 		}
 
@@ -336,7 +344,7 @@ void calculateQ2(column *T , unsigned char *pk) {
 			
 			#if (OIL_VARS <= 64) 
 				t = T[j];// & 0x7fffffffffffffff;
-				for (k = 0; k < OIL_VARS; k+=STRIDE) {
+				calculateQ2_label11:for (k = 0; k < OIL_VARS; k+=STRIDE) {
 					switch4(t,k,operation1,TempMat,r);
 					t >>=STRIDE;
 				}
@@ -362,7 +370,7 @@ void calculateQ2(column *T , unsigned char *pk) {
 		for (j = 0; j < OIL_VARS; j++) {
 			r = T[i];
 			#if OIL_VARS <= 64
-				for (k = 0; k < OIL_VARS; k+= STRIDE) {
+				calculateQ2_label12:for (k = 0; k < OIL_VARS; k+= STRIDE) {
 					switch4(r,k,operation1,temp[j],TempMat[j]);
 					r >>= STRIDE;
 				}
@@ -384,7 +392,7 @@ void calculateQ2(column *T , unsigned char *pk) {
 	writer W = newWriter(PK_Q2(pk));
 	column col;
 	for (i = 0; i < OIL_VARS; i++) {
-		for (j = i; j < OIL_VARS; j++) {
+		calculateQ2_label13:for (j = i; j < OIL_VARS; j++) {
 			col = temp[i][j];
 			if (j != i){
 				xor(&col,&temp[j][i]);
@@ -397,13 +405,13 @@ void calculateQ2(column *T , unsigned char *pk) {
 	while (W.bitsUsed != 0)
 		writeBit(&W,0);
 
-	for(i=0; i<OIL_VARS; i++){
+	/*for(i=0; i<OIL_VARS; i++){
 		free(temp[i]);
 	}
-	free(temp);
+	free(temp);*/
 
 	// Free the memory occupied by TempMat
-	free(TempMat);
+	//free(TempMat);
 }
 
 /*
@@ -412,7 +420,7 @@ void calculateQ2(column *T , unsigned char *pk) {
 	pk : receives the public key
 	sk : receives the secret key
 */
-int luov_keygen(unsigned char *pk, unsigned char *sk) {
+int crypto_sign_keypair/*luov_keygen*/(unsigned char pk[CRYPTO_PUBLICKEYBYTES], unsigned char sk[CRYPTO_SECRETKEYBYTES]) {
 	printIntermediateValue("--- Start keygen ---\n");
 
 	randombytes(sk , 32);
@@ -448,7 +456,8 @@ void BuildAugmentedMatrix(Matrix *A, FELT *vinegar_variables , FELT *target, col
 	int i, j, k;
 	column r;
 	FELT prod,swap;
-	FELT **temp = malloc(sizeof(FELT*)*(VINEGAR_VARS+1));
+	//FELT **temp = malloc(sizeof(FELT*)*(VINEGAR_VARS+1));
+	FELT temp[VINEGAR_VARS+1][((OIL_VARS+7)/8)*8] = {0};
 	FELT temp2[((OIL_VARS+7)/8)*8];
 	for (k = 0; k < OIL_VARS; k++) {
 		temp2[k] = target[k];
@@ -460,9 +469,9 @@ void BuildAugmentedMatrix(Matrix *A, FELT *vinegar_variables , FELT *target, col
 		logvin[i] = f8log(vinegar_variables[i]);
 	}
 
-	for( k = 0 ; k<= VINEGAR_VARS ; k++){
+	/*for( k = 0 ; k<= VINEGAR_VARS ; k++){
 		temp[k] = calloc(((OIL_VARS+7)/8)*8,sizeof(FELT));
-	}
+	}*/
 
 
 	for (i = 0; i <= VINEGAR_VARS; i++) {
@@ -495,10 +504,10 @@ void BuildAugmentedMatrix(Matrix *A, FELT *vinegar_variables , FELT *target, col
 		A->array[i][OIL_VARS] = temp2[i];
 	}
 
-	for(k=0 ; k<=VINEGAR_VARS ; k++){
+	/*for(k=0 ; k<=VINEGAR_VARS ; k++){
 		free(temp[k]);
 	}
-	free(temp);
+	free(temp);*/
 
 	A->cols = OIL_VARS+1;
 }
@@ -625,20 +634,32 @@ void solvePrivateUOVSystem(const unsigned char *publicseed, column *T, FELT *tar
 		printVinegarValues(&(solution[1]));
 
 		// Build the augmented matrix for the linear system
+#if 0
 		A = zeroMatrix(OIL_VARS, (((OIL_VARS+7)/8)*8) + 1);
+#else
+		A.rows = OIL_VARS;
+		A.cols = (((OIL_VARS+7)/8)*8) + 1;
+		int loop, loop2;
+		for(loop=0;loop<OIL_VARS;loop++) {
+			for(loop2=0;loop2<(((OIL_VARS+7)/8)*8) + 1;loop2++) {
+				A.array[loop][loop2]=ZERO;
+			}
+		}
+#endif
+
 		BuildAugmentedMatrix(&A, solution , target, T , &CG);
 
 		// Print augmented matrix if KAT is defined
 		printAugmentedMatrix(A);
 
 		// Try to find a unique solution to the linear system
-		solution_found = getUniqueSolution(A,&(solution[1+VINEGAR_VARS]));
+		solution_found = getUniqueSolution(&A,&(solution[1+VINEGAR_VARS]));
 
 		// Report whether a solution is found if KAT is defined
 		reportSolutionFound(solution_found);
 
 		// Free the memory occupied by the augmented matrix
-		destroy_matrix(A);
+		//destroy_matrix(A);
 	}
 }
 
@@ -654,14 +675,14 @@ void solvePrivateUOVSystem(const unsigned char *publicseed, column *T, FELT *tar
  */
 void computeTarget(const unsigned char* document , uint64_t len, FELT *target, const unsigned char* salt){
 	Sponge sponge;
-	unsigned char pad = 0;
+	unsigned char pad[1] = {0};
 
 	Keccak_HashInitialize_SHAKE(&sponge);
 	Keccak_HashUpdate(&sponge, document, len*8);
-	Keccak_HashUpdate(&sponge, &pad, 8);
+	Keccak_HashUpdate(&sponge, pad, 8);
 	Keccak_HashUpdate(&sponge, salt, SALT_BYTES*8);
 	Keccak_HashFinal(&sponge, 0);
-	Keccak_HashSqueeze(&sponge, (unsigned char *) target ,sizeof(FELT)*OIL_VARS*8);
+	Keccak_HashSqueeze(&sponge, target ,OIL_VARS*8);
 }
 #else
 
@@ -766,9 +787,10 @@ void extractMessage(unsigned char *document ,unsigned long long *len , FELT *eva
 
 	returns : A signature for the document
 */
-int luov_sign(unsigned char *sm, unsigned long long *smlen, const unsigned char *m , uint64_t mlen,  const unsigned char *sk) {
+int crypto_sign/*luov_sign*/(unsigned char sm[3300+CRYPTO_BYTES], unsigned long long smlen[1], const unsigned char m[3300] , uint64_t mlen,  const unsigned char sk[CRYPTO_SECRETKEYBYTES]) {
 	int i, j;
 	FELT target[OIL_VARS];
+	int loop;
 
 	printIntermediateValue("--- Start signing ---\n");
 
@@ -776,7 +798,10 @@ int luov_sign(unsigned char *sm, unsigned long long *smlen, const unsigned char 
 
 	// If not the entire mesage can be recovered from a signature, we copy the first part to sm.
 	if( mlen > RECOVERED_PART_MESSAGE ){
-		memcpy(sm,m,mlen - RECOVERED_PART_MESSAGE);
+		//memcpy(sm,m,mlen - RECOVERED_PART_MESSAGE);
+		for(loop=0;loop<mlen - RECOVERED_PART_MESSAGE;loop++) {
+			sm[loop]=m[loop];
+		}
 		sig += mlen - RECOVERED_PART_MESSAGE;
 	}
 
@@ -806,14 +831,17 @@ int luov_sign(unsigned char *sm, unsigned long long *smlen, const unsigned char 
 
 	// Convert into a solution for P(x) = target
 	for (i = 0; i <= VINEGAR_VARS; i++) {
-		for (j = 0; j < OIL_VARS; j++) {
+		crypto_sign_label8:for (j = 0; j < OIL_VARS; j++) {
 			if ( getBit(T[i] , j )) {
 				solution[i] = subtract(solution[i],solution[VINEGAR_VARS +1+ j]);
 			}
 		}
 	}
 
-	memcpy(SIG_SOL(sig),(unsigned char *) (solution+1),VARS*sizeof(FELT));
+	//memcpy(SIG_SOL(sig),(unsigned char *) (solution+1),VARS*sizeof(FELT));
+	crypto_sign_label9:for(loop=0;loop<VARS;loop++) {
+		sig[loop]=solution[loop+1];
+	}
 
 	*smlen = mlen + CRYPTO_BYTES - RECOVERED_PART_MESSAGE;
 	if(*smlen < CRYPTO_BYTES)
@@ -855,14 +883,192 @@ int luov_sign(unsigned char *sm, unsigned long long *smlen, const unsigned char 
 	signature : The point that P is evaluated in
 	evaluation : Receives the vector P(signature)
 */
+#ifndef DEBUG
 void evaluatePublicMap(const unsigned char *pk, const unsigned char *sig , FELT* evaluation){
+	int i,j,col;
+	FELT prod;
+	column r;
+	//FELT solution[VARS+1];
+	//solution[0] = ONE;
+	const uint16_t f8LogTable[256] =
+		{
+			509,   0,  25,   1,  50,   2,  26, 198,  75, 199,  27, 104,  51, 238, 223,   3,
+			100,   4, 224,  14,  52, 141, 129, 239,  76, 113,   8, 200, 248, 105,  28, 193,
+			125, 194,  29, 181, 249, 185,  39, 106,  77, 228, 166, 114, 154, 201,   9, 120,
+			101,  47, 138,   5,  33,  15, 225,  36,  18, 240, 130,  69,  53, 147, 218, 142,
+			150, 143, 219, 189,  54, 208, 206, 148,  19,  92, 210, 241,  64,  70, 131,  56,
+			102, 221, 253,  48, 191,   6, 139,  98, 179,  37, 226, 152,  34, 136, 145,  16,
+			126, 110,  72, 195, 163, 182,  30,  66,  58, 107,  40,  84, 250, 133,  61, 186,
+			 43, 121,  10,  21, 155, 159,  94, 202,  78, 212, 172, 229, 243, 115, 167,  87,
+			175,  88, 168,  80, 244, 234, 214, 116,  79, 174, 233, 213, 231, 230, 173, 232,
+			 44, 215, 117, 122, 235,  22,  11, 245,  89, 203,  95, 176, 156, 169,  81, 160,
+			127,  12, 246, 111,  23, 196,  73, 236, 216,  67,  31,  45, 164, 118, 123, 183,
+			204, 187,  62,  90, 251,  96, 177, 134,  59,  82, 161, 108, 170,  85,  41, 157,
+			151, 178, 135, 144,  97, 190, 220, 252, 188, 149, 207, 205,  55,  63,  91, 209,
+			 83,  57, 132,  60,  65, 162, 109,  71,  20,  42, 158,  93,  86, 242, 211, 171,
+			 68,  17, 146, 217,  35,  32,  46, 137, 180, 124, 184,  38, 119, 153, 227, 165,
+			103,  74, 237, 222, 197,  49, 254,  24,  13,  99, 140, 128, 192, 247, 112,   7
+		};
+	const uint8_t f8AntiLogTable[1019] =
+		{
+			0x01, 0x03, 0x05, 0x0f, 0x11, 0x33, 0x55, 0xff, 0x1a, 0x2e, 0x72, 0x96, 0xa1, 0xf8, 0x13, 0x35,
+			0x5f, 0xe1, 0x38, 0x48, 0xd8, 0x73, 0x95, 0xa4, 0xf7, 0x02, 0x06, 0x0a, 0x1e, 0x22, 0x66, 0xaa,
+			0xe5, 0x34, 0x5c, 0xe4, 0x37, 0x59, 0xeb, 0x26, 0x6a, 0xbe, 0xd9, 0x70, 0x90, 0xab, 0xe6, 0x31,
+			0x53, 0xf5, 0x04, 0x0c, 0x14, 0x3c, 0x44, 0xcc, 0x4f, 0xd1, 0x68, 0xb8, 0xd3, 0x6e, 0xb2, 0xcd,
+			0x4c, 0xd4, 0x67, 0xa9, 0xe0, 0x3b, 0x4d, 0xd7, 0x62, 0xa6, 0xf1, 0x08, 0x18, 0x28, 0x78, 0x88,
+			0x83, 0x9e, 0xb9, 0xd0, 0x6b, 0xbd, 0xdc, 0x7f, 0x81, 0x98, 0xb3, 0xce, 0x49, 0xdb, 0x76, 0x9a,
+			0xb5, 0xc4, 0x57, 0xf9, 0x10, 0x30, 0x50, 0xf0, 0x0b, 0x1d, 0x27, 0x69, 0xbb, 0xd6, 0x61, 0xa3,
+			0xfe, 0x19, 0x2b, 0x7d, 0x87, 0x92, 0xad, 0xec, 0x2f, 0x71, 0x93, 0xae, 0xe9, 0x20, 0x60, 0xa0,
+			0xfb, 0x16, 0x3a, 0x4e, 0xd2, 0x6d, 0xb7, 0xc2, 0x5d, 0xe7, 0x32, 0x56, 0xfa, 0x15, 0x3f, 0x41,
+			0xc3, 0x5e, 0xe2, 0x3d, 0x47, 0xc9, 0x40, 0xc0, 0x5b, 0xed, 0x2c, 0x74, 0x9c, 0xbf, 0xda, 0x75,
+			0x9f, 0xba, 0xd5, 0x64, 0xac, 0xef, 0x2a, 0x7e, 0x82, 0x9d, 0xbc, 0xdf, 0x7a, 0x8e, 0x89, 0x80,
+			0x9b, 0xb6, 0xc1, 0x58, 0xe8, 0x23, 0x65, 0xaf, 0xea, 0x25, 0x6f, 0xb1, 0xc8, 0x43, 0xc5, 0x54,
+			0xfc, 0x1f, 0x21, 0x63, 0xa5, 0xf4, 0x07, 0x09, 0x1b, 0x2d, 0x77, 0x99, 0xb0, 0xcb, 0x46, 0xca,
+			0x45, 0xcf, 0x4a, 0xde, 0x79, 0x8b, 0x86, 0x91, 0xa8, 0xe3, 0x3e, 0x42, 0xc6, 0x51, 0xf3, 0x0e,
+			0x12, 0x36, 0x5a, 0xee, 0x29, 0x7b, 0x8d, 0x8c, 0x8f, 0x8a, 0x85, 0x94, 0xa7, 0xf2, 0x0d, 0x17,
+			0x39, 0x4b, 0xdd, 0x7c, 0x84, 0x97, 0xa2, 0xfd, 0x1c, 0x24, 0x6c, 0xb4, 0xc7, 0x52, 0xf6,
+			0x01, 0x03, 0x05, 0x0f, 0x11, 0x33, 0x55, 0xff, 0x1a, 0x2e, 0x72, 0x96, 0xa1, 0xf8, 0x13, 0x35,
+			0x5f, 0xe1, 0x38, 0x48, 0xd8, 0x73, 0x95, 0xa4, 0xf7, 0x02, 0x06, 0x0a, 0x1e, 0x22, 0x66, 0xaa,
+			0xe5, 0x34, 0x5c, 0xe4, 0x37, 0x59, 0xeb, 0x26, 0x6a, 0xbe, 0xd9, 0x70, 0x90, 0xab, 0xe6, 0x31,
+			0x53, 0xf5, 0x04, 0x0c, 0x14, 0x3c, 0x44, 0xcc, 0x4f, 0xd1, 0x68, 0xb8, 0xd3, 0x6e, 0xb2, 0xcd,
+			0x4c, 0xd4, 0x67, 0xa9, 0xe0, 0x3b, 0x4d, 0xd7, 0x62, 0xa6, 0xf1, 0x08, 0x18, 0x28, 0x78, 0x88,
+			0x83, 0x9e, 0xb9, 0xd0, 0x6b, 0xbd, 0xdc, 0x7f, 0x81, 0x98, 0xb3, 0xce, 0x49, 0xdb, 0x76, 0x9a,
+			0xb5, 0xc4, 0x57, 0xf9, 0x10, 0x30, 0x50, 0xf0, 0x0b, 0x1d, 0x27, 0x69, 0xbb, 0xd6, 0x61, 0xa3,
+			0xfe, 0x19, 0x2b, 0x7d, 0x87, 0x92, 0xad, 0xec, 0x2f, 0x71, 0x93, 0xae, 0xe9, 0x20, 0x60, 0xa0,
+			0xfb, 0x16, 0x3a, 0x4e, 0xd2, 0x6d, 0xb7, 0xc2, 0x5d, 0xe7, 0x32, 0x56, 0xfa, 0x15, 0x3f, 0x41,
+			0xc3, 0x5e, 0xe2, 0x3d, 0x47, 0xc9, 0x40, 0xc0, 0x5b, 0xed, 0x2c, 0x74, 0x9c, 0xbf, 0xda, 0x75,
+			0x9f, 0xba, 0xd5, 0x64, 0xac, 0xef, 0x2a, 0x7e, 0x82, 0x9d, 0xbc, 0xdf, 0x7a, 0x8e, 0x89, 0x80,
+			0x9b, 0xb6, 0xc1, 0x58, 0xe8, 0x23, 0x65, 0xaf, 0xea, 0x25, 0x6f, 0xb1, 0xc8, 0x43, 0xc5, 0x54,
+			0xfc, 0x1f, 0x21, 0x63, 0xa5, 0xf4, 0x07, 0x09, 0x1b, 0x2d, 0x77, 0x99, 0xb0, 0xcb, 0x46, 0xca,
+			0x45, 0xcf, 0x4a, 0xde, 0x79, 0x8b, 0x86, 0x91, 0xa8, 0xe3, 0x3e, 0x42, 0xc6, 0x51, 0xf3, 0x0e,
+			0x12, 0x36, 0x5a, 0xee, 0x29, 0x7b, 0x8d, 0x8c, 0x8f, 0x8a, 0x85, 0x94, 0xa7, 0xf2, 0x0d, 0x17,
+			0x39, 0x4b, 0xdd, 0x7c, 0x84, 0x97, 0xa2, 0xfd, 0x1c, 0x24, 0x6c, 0xb4, 0xc7, 0x52,
+			0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+			0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+			0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+			0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+			0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+			0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+			0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+			0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+			0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+			0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+			0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+			0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+			0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+			0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+			0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+			0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+
+			0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+			0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+			0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+			0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+			0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+			0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+			0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+			0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+			0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+			0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+			0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+			0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+			0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+			0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+			0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+			0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
+
+		};
+	int loop;
+	//memcpy((unsigned char *)(solution+1), SIG_SOL(sig) , VARS*sizeof(FELT));
+    //for(loop=0;loop<VARS;loop++)
+    //	solution[1+loop] = sig[loop];
+	// Precomputes the logarithms of the elements in the signature
+	#if FIELD_SIZE == 8
+		/*uint16_t logsig[VARS+1];
+		for (i = 0; i <= VARS; i++)
+		{
+			//logsig[i] = f8log(solution[i]);
+			logsig[i] = f8LogTable[solution[i]];
+		}*/
+	#endif
+
+	// initialize evaluation to zero
+	for(i = 0 ; i<OIL_VARS ; i++){
+		evaluation[i] = ZERO;
+	}
+
+	ColumnGenerator CG;
+	ColumnGenerator_init(&CG,pk);
+
+	// Evaluate the part of P that is generated from the public seed
+	uint16_t temp = 0;
+	for (i = 0; i <= VINEGAR_VARS; i++) {
+		evaluatePublicMap_label4:for (j = i; j <= VARS ; j++) {
+			r = Next_Column(&CG);
+			#if FIELD_SIZE == 8
+			if(i==0 && j == 0)
+				temp = f8LogTable[ONE]+f8LogTable[ONE];
+			else if(i==0)
+				temp = f8LogTable[ONE]+f8LogTable[sig[j-1]];
+			else if(j==0)
+				temp = f8LogTable[sig[i-1]]+f8LogTable[ONE];
+			else
+				temp = f8LogTable[sig[i-1]]+f8LogTable[sig[j-1]];
+
+			prod = f8AntiLogTable[temp];
+				//prod = f8antilog(logsig[i]+logsig[j]);
+			#else
+				prod = multiply(solution[i],solution[j]);
+			#endif
+			addScalarProduct(evaluation,prod,r);
+		}
+	}
+
+	// Evaluate the part of P that is stored in the public key
+	col = 0;
+	/*reader R = newReader(&pk[32]);*/
+	reader R;
+	R.data = &pk[32];
+	R.next = 0;
+	R.bitsUsed = 0;
+	for (i = VINEGAR_VARS +1 ; i <= VARS; i++) {
+		evaluatePublicMap_label5:for (j = i; j <= VARS; j++) {
+			#if FIELD_SIZE == 8
+			if(i==0 && j == 0)
+				temp = f8LogTable[ONE]+f8LogTable[ONE];
+			else if(i==0)
+				temp = f8LogTable[ONE]+f8LogTable[sig[j-1]];
+			else if(j==0)
+				temp = f8LogTable[sig[i-1]]+f8LogTable[ONE];
+			else
+				temp = f8LogTable[sig[i-1]]+f8LogTable[sig[j-1]];
+
+			prod = f8AntiLogTable[temp];
+				//prod = f8AntiLogTable[logsig[i]+logsig[j]];
+				//prod = f8antilog(logsig[i]+logsig[j]);
+			#else
+				prod = multiply(solution[i],solution[j]);
+			#endif
+			r = deserialize_column(&R);
+			addScalarProduct(evaluation,prod,r);
+			col++;
+		}
+	}
+
+	// prints the evaluation of the public map if KAT is defined
+	printEvaluation(evaluation);
+}
+#else
+int evaluatePublicMap(const unsigned char *pk, const unsigned char *sig , FELT* evaluation){
 	int i,j,col;
 	FELT prod;
 	column r;
 	FELT solution[VARS+1];
 	solution[0] = ONE;
-	memcpy((unsigned char *)(solution+1), SIG_SOL(sig) , VARS*sizeof(FELT));
-
+	int loop,loop2;
+	//memcpy((unsigned char *)(solution+1), SIG_SOL(sig) , VARS*sizeof(FELT));
+    for(loop=0;loop<VARS;loop++)
+    	solution[1+loop] = sig[loop];
 	// Precomputes the logarithms of the elements in the signature
 	#if FIELD_SIZE == 8
 		uint16_t logsig[VARS+1];
@@ -878,7 +1084,15 @@ void evaluatePublicMap(const unsigned char *pk, const unsigned char *sig , FELT*
 	}
 
 	ColumnGenerator CG;
-	ColumnGenerator_init(&CG,PK_SEED(pk));
+	//ColumnGenerator_init(&CG,pk);
+	//int i;
+	unsigned char stream[16] = {0};
+
+	for(i=0; i<STATES; i++){
+		stream[0] = i;
+		PRNG_INIT(&CG.states[i], pk, stream);
+	}
+	CG.cols_used = BLOCK_SIZE/2;
 
 	// Evaluate the part of P that is generated from the public seed
 	for (i = 0; i <= VINEGAR_VARS; i++) {
@@ -892,10 +1106,19 @@ void evaluatePublicMap(const unsigned char *pk, const unsigned char *sig , FELT*
 			addScalarProduct(evaluation,prod,r);
 		}
 	}
+	loop2 = 0;
+    for(loop=0;loop<((OIL_VARS+7)/8)*8;loop++) {
+    	loop2 += evaluation[loop];
+    }
 
+    return loop2;
 	// Evaluate the part of P that is stored in the public key
 	col = 0;
-	reader R = newReader(PK_Q2(pk));
+	/*reader R = newReader(&pk[32]);*/
+	reader R;
+	R.data = &pk[32];
+	R.next = 0;
+	R.bitsUsed = 0;
 	for (i = VINEGAR_VARS +1 ; i <= VARS; i++) {
 		for (j = i; j <= VARS; j++) {
 			#if FIELD_SIZE == 8
@@ -911,8 +1134,9 @@ void evaluatePublicMap(const unsigned char *pk, const unsigned char *sig , FELT*
 
 	// prints the evaluation of the public map if KAT is defined
 	printEvaluation(evaluation);
+	return loop2;
 }
-
+#endif
 /*
 	Verifies a signature for a document
 
@@ -925,10 +1149,11 @@ void evaluatePublicMap(const unsigned char *pk, const unsigned char *sig , FELT*
 
 	returns : 0 if the signature is valid, -1 otherwise
 */
-int luov_verify(unsigned char *m , unsigned long long *mlen, const unsigned char *sm, unsigned long long smlen , const unsigned char *pk ) {
+int crypto_sign_open/*luov_verify*/(unsigned char m[3300+CRYPTO_BYTES], unsigned long long mlen[1], const unsigned char sm[3300+CRYPTO_BYTES], unsigned long long smlen , const unsigned char pk[CRYPTO_PUBLICKEYBYTES] ) {
 	int i;
 	FELT evaluation[((OIL_VARS+7)/8)*8];
 	FELT target[OIL_VARS];
+	int loop,loop2,loop3=0;
 
 	printIntermediateValue("--- Start verifying ---\n");
 
@@ -936,21 +1161,38 @@ int luov_verify(unsigned char *m , unsigned long long *mlen, const unsigned char
 		return -1;
 
 	// Copy the part of the message that cannot be recovered from the signature into m
-	memcpy(m,sm,smlen-CRYPTO_BYTES);
+	//memcpy(m,sm,smlen-CRYPTO_BYTES);
+	for(loop=0;loop<smlen-CRYPTO_BYTES;loop++)
+		m[loop]=sm[loop];
 	*mlen = smlen - CRYPTO_BYTES;
-	const unsigned char *sig = sm + smlen-CRYPTO_BYTES;
+	//const unsigned char *sig = sm + smlen-CRYPTO_BYTES;
 
 	// Evaluate the public map P at the signature
-	evaluatePublicMap(pk, sig , evaluation);
+#ifndef DEBUG
+	evaluatePublicMap(pk, &sm[smlen-CRYPTO_BYTES], evaluation);
+#else
+	loop3 = evaluatePublicMap(pk, &sm[smlen-CRYPTO_BYTES], evaluation);
+	return loop3;
+#endif
+
 
 	// If we are in message recovery mode, we extracts a part of the document from the signature
-	extractMessage(m , mlen , evaluation);
+	//extractMessage(m , mlen , evaluation);
 
 	// We compute the target based on the full document
-	computeTarget(m, *mlen, target, SIG_SALT(sig));
+	computeTarget(m, *mlen, target, SIG_SALT(&sm[smlen-CRYPTO_BYTES]));
 
 	// Output 0 if the evaluation of the public map is equal to the target, otherwise output -1
+	/*loop2=0;
+	for(loop=0;loop<CRYPTO_PUBLICKEYBYTES;loop++) {
+		loop2 += pk[loop];
+	}
+	for(loop=smlen-CRYPTO_BYTES;loop<smlen;loop++) {
+		loop2 += sm[loop];
+	}*/
+	loop=0;
 	for(i=0 ; i<OIL_VARS ; i++){
+		//loop=loop+evaluation[i];
 		if (! isEqual(target[i], evaluation[i])){
 			return -1;
 		}
@@ -958,9 +1200,10 @@ int luov_verify(unsigned char *m , unsigned long long *mlen, const unsigned char
 
 	printIntermediateValue("--- End verifying ---\n");
 
+	//return loop;
 	return 0;
 }
-
+#if 0
 int luov_sign_start(unsigned char *partial_signature, const unsigned char *sk){
 	int i, j, k;
 
@@ -996,7 +1239,7 @@ int luov_sign_start(unsigned char *partial_signature, const unsigned char *sk){
 		memset(target,0,sizeof(FELT)*OIL_VARS);
 
 		// Build the augmented matrix for the linear system
-		A = zeroMatrix(OIL_VARS, (((OIL_VARS+7)/8)*8) + 1);
+		//A = zeroMatrix(OIL_VARS, (((OIL_VARS+7)/8)*8) + 1);
 		BuildAugmentedMatrix(&A, solution , target, T , &CG);
 
 		for(i = 0; i<OIL_VARS; i++){
@@ -1034,7 +1277,7 @@ int luov_sign_start(unsigned char *partial_signature, const unsigned char *sk){
 	destroy_matrix(A_inv);
 	return 0;
 }
-
+#endif
 int luov_sign_finish(unsigned char *sm, unsigned long long * smlen, const unsigned char* m, uint64_t mlen, unsigned char *partial_signature){
 	int i, j, k;
 	FELT target[OIL_VARS];
