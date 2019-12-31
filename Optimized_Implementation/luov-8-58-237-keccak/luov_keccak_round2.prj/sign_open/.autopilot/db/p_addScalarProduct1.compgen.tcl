@@ -3,7 +3,7 @@
 # Memory (RAM/ROM)  definition:
 set ID 127
 set hasByteEnable 0
-set MemName p_addScalarProduchbi
+set MemName p_addScalarProduct1_eT
 set CoreName ap_simcore_mem
 set PortList { 1 }
 set DataWd 57
@@ -86,7 +86,7 @@ if {[info proc ::AESL_LIB_VIRTEX::xil_gen_ROM] == "::AESL_LIB_VIRTEX::xil_gen_RO
 # Memory (RAM/ROM)  definition:
 set ID 128
 set hasByteEnable 0
-set MemName p_addScalarProducibs
+set MemName p_addScalarProduct1_rT
 set CoreName ap_simcore_mem
 set PortList { 1 }
 set DataWd 64

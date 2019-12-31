@@ -1,7 +1,7 @@
 # This script segment is generated automatically by AutoPilot
 
 set id 130
-set name crypto_sign_mux_4qcK
+set name crypto_sign_mux_42_1_1_1
 set corename simcore_mux
 set op mux
 set stage_num 1
@@ -86,7 +86,7 @@ puts "@W \[IMPL-101\] Cannot find ::AESL_LIB_VIRTEX::xil_gen_pipemux, check your
 
 
 set id 131
-set name crypto_sign_mux_4qcK
+set name crypto_sign_mux_42_1_1_1
 set corename simcore_mux
 set op mux
 set stage_num 1
@@ -171,7 +171,7 @@ puts "@W \[IMPL-101\] Cannot find ::AESL_LIB_VIRTEX::xil_gen_pipemux, check your
 
 
 set id 132
-set name crypto_sign_mux_4qcK
+set name crypto_sign_mux_42_1_1_1
 set corename simcore_mux
 set op mux
 set stage_num 1
@@ -256,7 +256,7 @@ puts "@W \[IMPL-101\] Cannot find ::AESL_LIB_VIRTEX::xil_gen_pipemux, check your
 
 
 set id 133
-set name crypto_sign_mux_4qcK
+set name crypto_sign_mux_42_1_1_1
 set corename simcore_mux
 set op mux
 set stage_num 1
@@ -341,7 +341,7 @@ puts "@W \[IMPL-101\] Cannot find ::AESL_LIB_VIRTEX::xil_gen_pipemux, check your
 
 
 set id 135
-set name crypto_sign_mux_4rcU
+set name crypto_sign_mux_42_32_1_1
 set corename simcore_mux
 set op mux
 set stage_num 1
@@ -426,7 +426,7 @@ puts "@W \[IMPL-101\] Cannot find ::AESL_LIB_VIRTEX::xil_gen_pipemux, check your
 
 
 set id 150
-set name crypto_sign_mux_4sc4
+set name crypto_sign_mux_42_8_1_1
 set corename simcore_mux
 set op mux
 set stage_num 1
@@ -513,7 +513,7 @@ puts "@W \[IMPL-101\] Cannot find ::AESL_LIB_VIRTEX::xil_gen_pipemux, check your
 # Memory (RAM/ROM)  definition:
 set ID 210
 set hasByteEnable 0
-set MemName ColumnGenerator_ipcA
+set MemName ColumnGenerator_init_stream
 set CoreName ap_simcore_mem
 set PortList { 2 3 }
 set DataWd 3

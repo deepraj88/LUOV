@@ -3,7 +3,7 @@
 # Memory (RAM/ROM)  definition:
 set ID 112
 set hasByteEnable 0
-set MemName crypto_sign_open_xdS
+set MemName crypto_sign_open_evaluation
 set CoreName ap_simcore_mem
 set PortList { 2 3 }
 set DataWd 8
@@ -88,7 +88,7 @@ if {[info proc ::AESL_LIB_VIRTEX::xil_gen_RAM] == "::AESL_LIB_VIRTEX::xil_gen_RA
 # Memory (RAM/ROM)  definition:
 set ID 113
 set hasByteEnable 0
-set MemName crypto_sign_open_yd2
+set MemName crypto_sign_open_target
 set CoreName ap_simcore_mem
 set PortList { 2 2 }
 set DataWd 8

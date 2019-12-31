@@ -3,7 +3,7 @@
 # Memory (RAM/ROM)  definition:
 set ID 218
 set hasByteEnable 0
-set MemName getUniqueSolutionGfk
+set MemName getUniqueSolution_f8LogTable
 set CoreName ap_simcore_mem
 set PortList { 1 1 }
 set DataWd 9

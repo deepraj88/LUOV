@@ -3,7 +3,7 @@
 # Memory (RAM/ROM)  definition:
 set ID 184
 set hasByteEnable 0
-set MemName p_addScalarProducsc4
+set MemName p_addScalarProduct1_rT
 set CoreName ap_simcore_mem
 set PortList { 1 }
 set DataWd 64

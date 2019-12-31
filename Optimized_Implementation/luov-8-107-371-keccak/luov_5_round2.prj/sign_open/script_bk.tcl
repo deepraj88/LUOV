@@ -24,11 +24,11 @@ add_files chacha.c
 add_files intermediateValues.c
 add_files prng.c
 add_files rng.c
-add_files -tb newtest_sign.c
+add_files -tb newtest_sign.c -cflags "-Wno-unknown-pragmas"
 open_solution "sign_open"
 set_part {xc7a200tfbg676-2} -tool vivado
 create_clock -period 10 -name default
-config_interface  -expose_global  -m_axi_offset off -register_io off 
+config_interface  -expose_global -m_axi_addr64=0 -m_axi_offset off -register_io off -trim_dangling_port=0
 source "./luov_5_round2.prj/sign_open/directives_bk.tcl"
 #csim_design
 csynth_design

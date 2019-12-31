@@ -3,7 +3,7 @@
 # Memory (RAM/ROM)  definition:
 set ID 28
 set hasByteEnable 0
-set MemName ColumnGenerator_ieOg
+set MemName ColumnGenerator_init_stream
 set CoreName ap_simcore_mem
 set PortList { 2 3 }
 set DataWd 3

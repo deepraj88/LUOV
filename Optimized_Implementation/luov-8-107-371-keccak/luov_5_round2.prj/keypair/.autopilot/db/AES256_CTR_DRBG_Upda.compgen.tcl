@@ -3,7 +3,7 @@
 # Memory (RAM/ROM)  definition:
 set ID 22
 set hasByteEnable 0
-set MemName AES256_CTR_DRBG_UdEe
+set MemName AES256_CTR_DRBG_Upda_temp
 set CoreName ap_simcore_mem
 set PortList { 2 0 }
 set DataWd 8

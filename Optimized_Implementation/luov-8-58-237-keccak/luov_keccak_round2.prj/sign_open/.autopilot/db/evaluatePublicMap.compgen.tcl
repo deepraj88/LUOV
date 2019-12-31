@@ -3,7 +3,7 @@
 # Memory (RAM/ROM)  definition:
 set ID 132
 set hasByteEnable 0
-set MemName evaluatePublicMapjbC
+set MemName evaluatePublicMap_f8LogTable
 set CoreName ap_simcore_mem
 set PortList { 1 1 }
 set DataWd 9
@@ -86,7 +86,7 @@ if {[info proc ::AESL_LIB_VIRTEX::xil_gen_ROM] == "::AESL_LIB_VIRTEX::xil_gen_RO
 # Memory (RAM/ROM)  definition:
 set ID 133
 set hasByteEnable 0
-set MemName evaluatePublicMapkbM
+set MemName evaluatePublicMap_f8AntiLogTable
 set CoreName ap_simcore_mem
 set PortList { 1 }
 set DataWd 8
@@ -169,7 +169,7 @@ if {[info proc ::AESL_LIB_VIRTEX::xil_gen_ROM] == "::AESL_LIB_VIRTEX::xil_gen_RO
 # Memory (RAM/ROM)  definition:
 set ID 134
 set hasByteEnable 0
-set MemName evaluatePublicMaplbW
+set MemName evaluatePublicMap_CG_states_sponge_sta
 set CoreName ap_simcore_mem
 set PortList { 2 2 }
 set DataWd 8
@@ -254,7 +254,7 @@ if {[info proc ::AESL_LIB_VIRTEX::xil_gen_RAM] == "::AESL_LIB_VIRTEX::xil_gen_RA
 # Memory (RAM/ROM)  definition:
 set ID 135
 set hasByteEnable 0
-set MemName evaluatePublicMapmb6
+set MemName evaluatePublicMap_CG_blocks
 set CoreName ap_simcore_mem
 set PortList { 2 2 }
 set DataWd 8

@@ -3,7 +3,7 @@
 # Memory (RAM/ROM)  definition:
 set ID 63
 set hasByteEnable 0
-set MemName squeezeuint64_t_tg8j
+set MemName squeezeuint64_t_temp
 set CoreName ap_simcore_mem
 set PortList { 2 2 }
 set DataWd 8
@@ -88,7 +88,7 @@ if {[info proc ::AESL_LIB_VIRTEX::xil_gen_RAM] == "::AESL_LIB_VIRTEX::xil_gen_RA
 # Memory (RAM/ROM)  definition:
 set ID 64
 set hasByteEnable 0
-set MemName squeezeuint64_t_thbi
+set MemName squeezeuint64_t_temp2
 set CoreName ap_simcore_mem
 set PortList { 2 3 }
 set DataWd 64

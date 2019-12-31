@@ -3,7 +3,7 @@
 # Memory (RAM/ROM)  definition:
 set ID 121
 set hasByteEnable 0
-set MemName KeccakF1600_FastLocq
+set MemName KeccakF1600_FastLoop_1_stateAsLanes
 set CoreName ap_simcore_mem
 set PortList { 2 3 }
 set DataWd 64

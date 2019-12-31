@@ -1,7 +1,7 @@
 # This script segment is generated automatically by AutoPilot
 
 set id 195
-set name crypto_sign_mac_mCeG
+set name crypto_sign_mac_muladd_8ns_14s_7ns_14_1_1
 set corename simcore_mac
 set op mac
 set stage_num 1
@@ -85,7 +85,7 @@ puts "@W \[IMPL-101\] Cannot find ::AESL_LIB_VIRTEX::xil_gen_dsp48, check your p
 # Memory (RAM/ROM)  definition:
 set ID 197
 set hasByteEnable 0
-set MemName BuildAugmentedMatwdI
+set MemName BuildAugmentedMatrix_f8LogTable
 set CoreName ap_simcore_mem
 set PortList { 1 }
 set DataWd 9
@@ -168,7 +168,7 @@ if {[info proc ::AESL_LIB_VIRTEX::xil_gen_ROM] == "::AESL_LIB_VIRTEX::xil_gen_RO
 # Memory (RAM/ROM)  definition:
 set ID 198
 set hasByteEnable 0
-set MemName BuildAugmentedMatxdS
+set MemName BuildAugmentedMatrix_f8AntiLogTable
 set CoreName ap_simcore_mem
 set PortList { 1 }
 set DataWd 8
@@ -251,7 +251,7 @@ if {[info proc ::AESL_LIB_VIRTEX::xil_gen_ROM] == "::AESL_LIB_VIRTEX::xil_gen_RO
 # Memory (RAM/ROM)  definition:
 set ID 199
 set hasByteEnable 0
-set MemName BuildAugmentedMatyd2
+set MemName BuildAugmentedMatrix_T_components2
 set CoreName ap_simcore_mem
 set PortList { 2 2 }
 set DataWd 64
@@ -336,7 +336,7 @@ if {[info proc ::AESL_LIB_VIRTEX::xil_gen_RAM] == "::AESL_LIB_VIRTEX::xil_gen_RA
 # Memory (RAM/ROM)  definition:
 set ID 200
 set hasByteEnable 0
-set MemName BuildAugmentedMatzec
+set MemName BuildAugmentedMatrix_temp
 set CoreName ap_simcore_mem
 set PortList { 2 2 }
 set DataWd 8
@@ -421,7 +421,7 @@ if {[info proc ::AESL_LIB_VIRTEX::xil_gen_RAM] == "::AESL_LIB_VIRTEX::xil_gen_RA
 # Memory (RAM/ROM)  definition:
 set ID 201
 set hasByteEnable 0
-set MemName BuildAugmentedMatAem
+set MemName BuildAugmentedMatrix_temp2
 set CoreName ap_simcore_mem
 set PortList { 2 2 }
 set DataWd 8
@@ -506,7 +506,7 @@ if {[info proc ::AESL_LIB_VIRTEX::xil_gen_RAM] == "::AESL_LIB_VIRTEX::xil_gen_RA
 # Memory (RAM/ROM)  definition:
 set ID 202
 set hasByteEnable 0
-set MemName BuildAugmentedMatBew
+set MemName BuildAugmentedMatrix_logvin
 set CoreName ap_simcore_mem
 set PortList { 2 3 }
 set DataWd 9

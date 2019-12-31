@@ -2,7 +2,7 @@
     <sourceFile name="">
         <directive functionName="KeccakP1600_ExtractBytesInLane" label="KeccakP1600_ExtractBytesInLane_label3" functionLabel="">
             <pragma name="UNROLL">
-                <option name="factor" value="128"/>
+                <option name="factor" value="4"/>
             </pragma>
         </directive>
         <directive functionName="KeccakP1600_ExtractBytesInLane" label="KeccakP1600_ExtractBytesInLane_label3" functionLabel="">
@@ -40,7 +40,7 @@
         </directive>
         <directive functionName="calculateQ2" label="calculateQ2_label13" functionLabel="">
             <pragma name="UNROLL">
-                <option name="factor" value="128"/>
+                <option name="factor" value="4"/>
             </pragma>
         </directive>
         <directive functionName="calculateQ2" label="calculateQ2_label13" functionLabel="">
@@ -48,7 +48,7 @@
         </directive>
         <directive functionName="calculateQ2" label="calculateQ2_label14" functionLabel="">
             <pragma name="UNROLL">
-                <option name="factor" value="128"/>
+                <option name="factor" value="4"/>
             </pragma>
         </directive>
         <directive functionName="calculateQ2" label="calculateQ2_label14" functionLabel="">
@@ -56,7 +56,7 @@
         </directive>
         <directive functionName="calculateQ2" label="calculateQ2_label15" functionLabel="">
             <pragma name="UNROLL">
-                <option name="factor" value="128"/>
+                <option name="factor" value="4"/>
             </pragma>
         </directive>
         <directive functionName="calculateQ2" label="calculateQ2_label15" functionLabel="">
@@ -64,7 +64,7 @@
         </directive>
         <directive functionName="calculateQ2" label="calculateQ2_label16" functionLabel="">
             <pragma name="UNROLL">
-                <option name="factor" value="128"/>
+                <option name="factor" value="4"/>
             </pragma>
         </directive>
         <directive functionName="calculateQ2" label="calculateQ2_label16" functionLabel="">
@@ -72,7 +72,7 @@
         </directive>
         <directive functionName="calculateQ2" label="calculateQ2_label17" functionLabel="">
             <pragma name="UNROLL">
-                <option name="factor" value="128"/>
+                <option name="factor" value="4"/>
             </pragma>
         </directive>
         <directive functionName="calculateQ2" label="calculateQ2_label17" functionLabel="">
@@ -80,7 +80,7 @@
         </directive>
         <directive functionName="calculateQ2" label="calculateQ2_label18" functionLabel="">
             <pragma name="UNROLL">
-                <option name="factor" value="128"/>
+                <option name="factor" value="4"/>
             </pragma>
         </directive>
         <directive functionName="calculateQ2" label="calculateQ2_label18" functionLabel="">
@@ -88,7 +88,7 @@
         </directive>
         <directive functionName="Next_Column" label="Next_Column_label7" functionLabel="">
             <pragma name="UNROLL">
-                <option name="factor" value="128"/>
+                <option name="factor" value="4"/>
             </pragma>
         </directive>
         <directive functionName="Next_Column" label="Next_Column_label7" functionLabel="">
@@ -96,7 +96,7 @@
         </directive>
         <directive functionName="Next_Column" label="Next_Column_label8" functionLabel="">
             <pragma name="UNROLL">
-                <option name="factor" value="128"/>
+                <option name="factor" value="4"/>
             </pragma>
         </directive>
         <directive functionName="Next_Column" label="Next_Column_label8" functionLabel="">

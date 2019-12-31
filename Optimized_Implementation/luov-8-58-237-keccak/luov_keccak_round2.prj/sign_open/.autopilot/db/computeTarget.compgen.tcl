@@ -3,7 +3,7 @@
 # Memory (RAM/ROM)  definition:
 set ID 167
 set hasByteEnable 0
-set MemName computeTarget_sposc4
+set MemName computeTarget_sponge_sponge_state
 set CoreName ap_simcore_mem
 set PortList { 2 2 }
 set DataWd 8

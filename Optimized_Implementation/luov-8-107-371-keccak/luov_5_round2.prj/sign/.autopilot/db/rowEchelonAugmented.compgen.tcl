@@ -1,7 +1,7 @@
 # This script segment is generated automatically by AutoPilot
 
 set id 208
-set name crypto_sign_mul_mDeQ
+set name crypto_sign_mul_mul_8ns_15s_15_1_1
 set corename simcore_mul
 set op mul
 set stage_num 1

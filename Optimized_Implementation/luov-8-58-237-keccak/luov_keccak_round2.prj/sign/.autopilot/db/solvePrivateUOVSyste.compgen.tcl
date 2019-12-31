@@ -3,7 +3,7 @@
 # Memory (RAM/ROM)  definition:
 set ID 313
 set hasByteEnable 0
-set MemName solvePrivateUOVSyGfk
+set MemName solvePrivateUOVSyste_A_array
 set CoreName ap_simcore_mem
 set PortList { 2 2 }
 set DataWd 8
@@ -88,7 +88,7 @@ if {[info proc ::AESL_LIB_VIRTEX::xil_gen_RAM] == "::AESL_LIB_VIRTEX::xil_gen_RA
 # Memory (RAM/ROM)  definition:
 set ID 314
 set hasByteEnable 0
-set MemName solvePrivateUOVSyHfu
+set MemName solvePrivateUOVSyste_CG_states_sponge_sta
 set CoreName ap_simcore_mem
 set PortList { 2 2 }
 set DataWd 8
@@ -173,7 +173,7 @@ if {[info proc ::AESL_LIB_VIRTEX::xil_gen_RAM] == "::AESL_LIB_VIRTEX::xil_gen_RA
 # Memory (RAM/ROM)  definition:
 set ID 315
 set hasByteEnable 0
-set MemName solvePrivateUOVSyIfE
+set MemName solvePrivateUOVSyste_CG_blocks
 set CoreName ap_simcore_mem
 set PortList { 2 2 }
 set DataWd 8

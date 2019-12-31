@@ -1,9 +1,9 @@
 # This script segment is generated automatically by AutoPilot
 
 # Memory (RAM/ROM)  definition:
-set ID 157
+set ID 152
 set hasByteEnable 0
-set MemName crypto_sign_keypaxdS
+set MemName crypto_sign_keypair_sponge_sponge_state
 set CoreName ap_simcore_mem
 set PortList { 2 2 }
 set DataWd 8
@@ -86,9 +86,9 @@ if {[info proc ::AESL_LIB_VIRTEX::xil_gen_RAM] == "::AESL_LIB_VIRTEX::xil_gen_RA
 
 
 # Memory (RAM/ROM)  definition:
-set ID 158
+set ID 153
 set hasByteEnable 0
-set MemName crypto_sign_keypayd2
+set MemName crypto_sign_keypair_T_components
 set CoreName ap_simcore_mem
 set PortList { 2 2 }
 set DataWd 64
@@ -181,7 +181,7 @@ if {${::AESL::PGuard_autoexp_gen}} {
 if {${::AESL::PGuard_autoexp_gen}} {
 if {[info proc ::AESL_LIB_XILADAPTER::xil_bram_gen] == "::AESL_LIB_XILADAPTER::xil_bram_gen"} {
 eval "::AESL_LIB_XILADAPTER::xil_bram_gen { \
-    id 159 \
+    id 154 \
     name pk \
     reset_level 1 \
     sync_rst true \
@@ -200,7 +200,7 @@ puts "@W \[IMPL-110\] Cannot find bus interface model in the library. Ignored ge
 if {${::AESL::PGuard_autoexp_gen}} {
 if {[info proc ::AESL_LIB_XILADAPTER::xil_bram_gen] == "::AESL_LIB_XILADAPTER::xil_bram_gen"} {
 eval "::AESL_LIB_XILADAPTER::xil_bram_gen { \
-    id 160 \
+    id 155 \
     name sk \
     reset_level 1 \
     sync_rst true \
@@ -219,7 +219,7 @@ puts "@W \[IMPL-110\] Cannot find bus interface model in the library. Ignored ge
 if {${::AESL::PGuard_autoexp_gen}} {
 if {[info proc ::AESL_LIB_XILADAPTER::xil_bram_gen] == "::AESL_LIB_XILADAPTER::xil_bram_gen"} {
 eval "::AESL_LIB_XILADAPTER::xil_bram_gen { \
-    id 161 \
+    id 156 \
     name DRBG_ctx_V \
     reset_level 1 \
     sync_rst true \
@@ -238,7 +238,7 @@ puts "@W \[IMPL-110\] Cannot find bus interface model in the library. Ignored ge
 if {${::AESL::PGuard_autoexp_gen}} {
 if {[info proc ::AESL_LIB_XILADAPTER::xil_bram_gen] == "::AESL_LIB_XILADAPTER::xil_bram_gen"} {
 eval "::AESL_LIB_XILADAPTER::xil_bram_gen { \
-    id 162 \
+    id 157 \
     name DRBG_ctx_Key \
     reset_level 1 \
     sync_rst true \
@@ -256,7 +256,7 @@ puts "@W \[IMPL-110\] Cannot find bus interface model in the library. Ignored ge
 # Direct connection:
 if {${::AESL::PGuard_autoexp_gen}} {
 eval "cg_default_interface_gen_dc { \
-    id 163 \
+    id 158 \
     name DRBG_ctx_reseed_counter \
     type other \
     dir IO \

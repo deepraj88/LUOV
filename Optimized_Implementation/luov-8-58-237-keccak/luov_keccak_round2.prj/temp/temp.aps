@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <solution AutoPilot="com.autoesl.autopilot.solution">
   <name>
-    <value/>
+    <value string="temp"/>
   </name>
   <project>
-    <value/>
+    <value string="luov_keccak_round2.prj"/>
   </project>
   <checksum>
     <value string="false"/>

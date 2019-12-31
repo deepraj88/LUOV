@@ -88,7 +88,7 @@ if {[info proc ::AESL_LIB_VIRTEX::xil_gen_RAM] == "::AESL_LIB_VIRTEX::xil_gen_RA
 # Memory (RAM/ROM)  definition:
 set ID 324
 set hasByteEnable 0
-set MemName crypto_sign_publiKfY
+set MemName crypto_sign_publicseed
 set CoreName ap_simcore_mem
 set PortList { 2 2 }
 set DataWd 8
@@ -258,7 +258,7 @@ if {[info proc ::AESL_LIB_VIRTEX::xil_gen_RAM] == "::AESL_LIB_VIRTEX::xil_gen_RA
 # Memory (RAM/ROM)  definition:
 set ID 326
 set hasByteEnable 0
-set MemName crypto_sign_solutLf8
+set MemName crypto_sign_solution
 set CoreName ap_simcore_mem
 set PortList { 2 2 }
 set DataWd 8

@@ -12,16 +12,16 @@ if {${::AESL::PGuard_autoexp_gen}} {
 if {[info proc ::AESL_LIB_XILADAPTER::xil_bram_gen] == "::AESL_LIB_XILADAPTER::xil_bram_gen"} {
 eval "::AESL_LIB_XILADAPTER::xil_bram_gen { \
     id 129 \
-    name a_components_0 \
+    name a_0_components \
     reset_level 1 \
     sync_rst true \
     dir IO \
-    corename a_components_0 \
+    corename a_0_components \
     op interface \
-    ports { a_components_0_address0 { O 7 vector } a_components_0_ce0 { O 1 bit } a_components_0_we0 { O 1 bit } a_components_0_d0 { O 64 vector } a_components_0_q0 { I 64 vector } } \
+    ports { a_0_components_address0 { O 7 vector } a_0_components_ce0 { O 1 bit } a_0_components_we0 { O 1 bit } a_0_components_d0 { O 64 vector } a_0_components_q0 { I 64 vector } } \
 } "
 } else {
-puts "@W \[IMPL-110\] Cannot find bus interface model in the library. Ignored generation of bus interface for 'a_components_0'"
+puts "@W \[IMPL-110\] Cannot find bus interface model in the library. Ignored generation of bus interface for 'a_0_components'"
 }
 }
 
@@ -31,16 +31,16 @@ if {${::AESL::PGuard_autoexp_gen}} {
 if {[info proc ::AESL_LIB_XILADAPTER::xil_bram_gen] == "::AESL_LIB_XILADAPTER::xil_bram_gen"} {
 eval "::AESL_LIB_XILADAPTER::xil_bram_gen { \
     id 130 \
-    name a_components_1 \
+    name a_1_components \
     reset_level 1 \
     sync_rst true \
     dir IO \
-    corename a_components_1 \
+    corename a_1_components \
     op interface \
-    ports { a_components_1_address0 { O 7 vector } a_components_1_ce0 { O 1 bit } a_components_1_we0 { O 1 bit } a_components_1_d0 { O 64 vector } a_components_1_q0 { I 64 vector } } \
+    ports { a_1_components_address0 { O 7 vector } a_1_components_ce0 { O 1 bit } a_1_components_we0 { O 1 bit } a_1_components_d0 { O 64 vector } a_1_components_q0 { I 64 vector } } \
 } "
 } else {
-puts "@W \[IMPL-110\] Cannot find bus interface model in the library. Ignored generation of bus interface for 'a_components_1'"
+puts "@W \[IMPL-110\] Cannot find bus interface model in the library. Ignored generation of bus interface for 'a_1_components'"
 }
 }
 
@@ -56,7 +56,7 @@ eval "cg_default_interface_gen_dc { \
     sync_rst true \
     corename dc_a_components_offset \
     op interface \
-    ports { a_components_offset { I 8 vector } } \
+    ports { a_components_offset { I 7 vector } } \
 } "
 }
 
@@ -141,6 +141,26 @@ eval "cg_default_interface_gen_reset { \
 }"
 } else {
 puts "@W \[IMPL-114\] Cannot find bus interface model in the library. Ignored generation of bus interface for '${PortName}'"
+}
+}
+
+
+# Adapter definition:
+set PortName ap_ce
+set DataWd 1 
+if {${::AESL::PGuard_autoexp_gen}} {
+if {[info proc cg_default_interface_gen_ce] == "cg_default_interface_gen_ce"} {
+eval "cg_default_interface_gen_ce { \
+    id -4 \
+    name ${PortName} \
+    reset_level 1 \
+    sync_rst true \
+    corename apif_ap_ce \
+    data_wd ${DataWd} \
+    op interface \
+}"
+} else {
+puts "@W \[IMPL-113\] Cannot find bus interface model in the library. Ignored generation of bus interface for '${PortName}'"
 }
 }
 

@@ -3,7 +3,7 @@
 # Memory (RAM/ROM)  definition:
 set ID 221
 set hasByteEnable 0
-set MemName solvePrivateUOVSyIfE
+set MemName solvePrivateUOVSyste_A_array
 set CoreName ap_simcore_mem
 set PortList { 2 2 }
 set DataWd 8
@@ -88,7 +88,7 @@ if {[info proc ::AESL_LIB_VIRTEX::xil_gen_RAM] == "::AESL_LIB_VIRTEX::xil_gen_RA
 # Memory (RAM/ROM)  definition:
 set ID 222
 set hasByteEnable 0
-set MemName solvePrivateUOVSyJfO
+set MemName solvePrivateUOVSyste_CG_states_sponge_sta
 set CoreName ap_simcore_mem
 set PortList { 2 2 }
 set DataWd 8
@@ -173,7 +173,7 @@ if {[info proc ::AESL_LIB_VIRTEX::xil_gen_RAM] == "::AESL_LIB_VIRTEX::xil_gen_RA
 # Memory (RAM/ROM)  definition:
 set ID 223
 set hasByteEnable 0
-set MemName solvePrivateUOVSyKfY
+set MemName solvePrivateUOVSyste_CG_states_sponge_rat
 set CoreName ap_simcore_mem
 set PortList { 2 3 }
 set DataWd 12
@@ -258,7 +258,7 @@ if {[info proc ::AESL_LIB_VIRTEX::xil_gen_RAM] == "::AESL_LIB_VIRTEX::xil_gen_RA
 # Memory (RAM/ROM)  definition:
 set ID 224
 set hasByteEnable 0
-set MemName solvePrivateUOVSyLf8
+set MemName solvePrivateUOVSyste_CG_states_sponge_byt
 set CoreName ap_simcore_mem
 set PortList { 2 3 }
 set DataWd 32
@@ -343,7 +343,7 @@ if {[info proc ::AESL_LIB_VIRTEX::xil_gen_RAM] == "::AESL_LIB_VIRTEX::xil_gen_RA
 # Memory (RAM/ROM)  definition:
 set ID 225
 set hasByteEnable 0
-set MemName solvePrivateUOVSyNgs
+set MemName solvePrivateUOVSyste_CG_states_fixedOutpu
 set CoreName ap_simcore_mem
 set PortList { 0 3 }
 set DataWd 1
@@ -428,7 +428,7 @@ if {[info proc ::AESL_LIB_VIRTEX::xil_gen_RAM] == "::AESL_LIB_VIRTEX::xil_gen_RA
 # Memory (RAM/ROM)  definition:
 set ID 226
 set hasByteEnable 0
-set MemName solvePrivateUOVSyOgC
+set MemName solvePrivateUOVSyste_CG_states_delimitedS
 set CoreName ap_simcore_mem
 set PortList { 0 3 }
 set DataWd 6
@@ -513,7 +513,7 @@ if {[info proc ::AESL_LIB_VIRTEX::xil_gen_RAM] == "::AESL_LIB_VIRTEX::xil_gen_RA
 # Memory (RAM/ROM)  definition:
 set ID 227
 set hasByteEnable 0
-set MemName solvePrivateUOVSyPgM
+set MemName solvePrivateUOVSyste_CG_blocks
 set CoreName ap_simcore_mem
 set PortList { 2 2 }
 set DataWd 8

@@ -11,6 +11,6 @@ set_directive_allocation -limit 1 -type function "KeccakP1600_ExtractBytesInLane
 set_directive_inline "KeccakP1600_ExtractBytesInLane"
 set_directive_pipeline "evaluatePublicMap/evaluatePublicMap_label5"
 set_directive_unroll -factor 128 "Next_Column/Next_Column_label6"
-set_directive_unroll -factor 128 "_addScalarProduct1/_addScalarProduct1_label7"
+set_directive_unroll -factor 1 "_addScalarProduct1/_addScalarProduct1_label7"
 set_directive_pipeline "_addScalarProduct1/_addScalarProduct1_label7"
-set_directive_unroll -factor 128 "evaluatePublicMap/evaluatePublicMap_label5"
+set_directive_unroll -factor 1 "evaluatePublicMap/evaluatePublicMap_label5"

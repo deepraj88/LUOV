@@ -3,7 +3,7 @@
 # Memory (RAM/ROM)  definition:
 set ID 285
 set hasByteEnable 0
-set MemName BuildAugmentedMatvdy
+set MemName BuildAugmentedMatrix_f8LogTable
 set CoreName ap_simcore_mem
 set PortList { 1 }
 set DataWd 9
@@ -86,7 +86,7 @@ if {[info proc ::AESL_LIB_VIRTEX::xil_gen_ROM] == "::AESL_LIB_VIRTEX::xil_gen_RO
 # Memory (RAM/ROM)  definition:
 set ID 286
 set hasByteEnable 0
-set MemName BuildAugmentedMatwdI
+set MemName BuildAugmentedMatrix_f8AntiLogTable
 set CoreName ap_simcore_mem
 set PortList { 1 }
 set DataWd 8
@@ -169,7 +169,7 @@ if {[info proc ::AESL_LIB_VIRTEX::xil_gen_ROM] == "::AESL_LIB_VIRTEX::xil_gen_RO
 # Memory (RAM/ROM)  definition:
 set ID 287
 set hasByteEnable 0
-set MemName BuildAugmentedMatxdS
+set MemName BuildAugmentedMatrix_rT
 set CoreName ap_simcore_mem
 set PortList { 1 1 1 }
 set DataWd 64
@@ -252,7 +252,7 @@ if {[info proc ::AESL_LIB_VIRTEX::xil_gen_ROM] == "::AESL_LIB_VIRTEX::xil_gen_RO
 # Memory (RAM/ROM)  definition:
 set ID 288
 set hasByteEnable 0
-set MemName BuildAugmentedMatzec
+set MemName BuildAugmentedMatrix_temp
 set CoreName ap_simcore_mem
 set PortList { 2 2 }
 set DataWd 8
@@ -337,7 +337,7 @@ if {[info proc ::AESL_LIB_VIRTEX::xil_gen_RAM] == "::AESL_LIB_VIRTEX::xil_gen_RA
 # Memory (RAM/ROM)  definition:
 set ID 289
 set hasByteEnable 0
-set MemName BuildAugmentedMatAem
+set MemName BuildAugmentedMatrix_temp2
 set CoreName ap_simcore_mem
 set PortList { 2 2 }
 set DataWd 8
@@ -422,7 +422,7 @@ if {[info proc ::AESL_LIB_VIRTEX::xil_gen_RAM] == "::AESL_LIB_VIRTEX::xil_gen_RA
 # Memory (RAM/ROM)  definition:
 set ID 290
 set hasByteEnable 0
-set MemName BuildAugmentedMatBew
+set MemName BuildAugmentedMatrix_logvin
 set CoreName ap_simcore_mem
 set PortList { 2 3 }
 set DataWd 9

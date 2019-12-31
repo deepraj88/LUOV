@@ -88,7 +88,7 @@ if {[info proc ::AESL_LIB_VIRTEX::xil_gen_RAM] == "::AESL_LIB_VIRTEX::xil_gen_RA
 # Memory (RAM/ROM)  definition:
 set ID 205
 set hasByteEnable 0
-set MemName calculateQ2_CG_stocq
+set MemName calculateQ2_CG_states_sponge_sta
 set CoreName ap_simcore_mem
 set PortList { 2 2 }
 set DataWd 8
@@ -173,7 +173,7 @@ if {[info proc ::AESL_LIB_VIRTEX::xil_gen_RAM] == "::AESL_LIB_VIRTEX::xil_gen_RA
 # Memory (RAM/ROM)  definition:
 set ID 206
 set hasByteEnable 0
-set MemName calculateQ2_CG_blpcA
+set MemName calculateQ2_CG_blocks
 set CoreName ap_simcore_mem
 set PortList { 2 2 }
 set DataWd 8

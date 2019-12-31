@@ -1,7 +1,7 @@
 # This script segment is generated automatically by AutoPilot
 
 set id 170
-set name crypto_sign_mac_msc4
+set name crypto_sign_mac_muladd_8ns_9ns_9ns_16_1_1
 set corename simcore_mac
 set op mac
 set stage_num 1
@@ -83,7 +83,7 @@ puts "@W \[IMPL-101\] Cannot find ::AESL_LIB_VIRTEX::xil_gen_dsp48, check your p
 
 
 set id 171
-set name crypto_sign_mac_mtde
+set name crypto_sign_mac_muladd_8ns_17s_9ns_17_1_1
 set corename simcore_mac
 set op mac
 set stage_num 1
@@ -167,7 +167,7 @@ puts "@W \[IMPL-101\] Cannot find ::AESL_LIB_VIRTEX::xil_gen_dsp48, check your p
 # Memory (RAM/ROM)  definition:
 set ID 174
 set hasByteEnable 0
-set MemName p_addScalarProducqcK
+set MemName p_addScalarProduct3_rT
 set CoreName ap_simcore_mem
 set PortList { 1 1 1 }
 set DataWd 64
@@ -250,7 +250,7 @@ if {[info proc ::AESL_LIB_VIRTEX::xil_gen_ROM] == "::AESL_LIB_VIRTEX::xil_gen_RO
 # Memory (RAM/ROM)  definition:
 set ID 175
 set hasByteEnable 0
-set MemName p_addScalarProducrcU
+set MemName p_addScalarProduct3_eT
 set CoreName ap_simcore_mem
 set PortList { 1 }
 set DataWd 57

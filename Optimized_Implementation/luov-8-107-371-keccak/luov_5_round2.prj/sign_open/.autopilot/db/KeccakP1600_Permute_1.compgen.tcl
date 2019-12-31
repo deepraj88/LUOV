@@ -3,7 +3,7 @@
 # Memory (RAM/ROM)  definition:
 set ID 9
 set hasByteEnable 0
-set MemName KeccakP1600_Permubkb
+set MemName KeccakP1600_Permute_1_KeccakF1600RoundCons
 set CoreName ap_simcore_mem
 set PortList { 1 1 }
 set DataWd 64
@@ -86,7 +86,7 @@ if {[info proc ::AESL_LIB_VIRTEX::xil_gen_ROM] == "::AESL_LIB_VIRTEX::xil_gen_RO
 # Memory (RAM/ROM)  definition:
 set ID 10
 set hasByteEnable 0
-set MemName KeccakP1600_Permucud
+set MemName KeccakP1600_Permute_1_stateAsLanes2
 set CoreName ap_simcore_mem
 set PortList { 2 2 }
 set DataWd 64

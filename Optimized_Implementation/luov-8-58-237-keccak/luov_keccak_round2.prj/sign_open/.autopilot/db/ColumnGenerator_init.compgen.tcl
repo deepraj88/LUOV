@@ -1,7 +1,7 @@
 # This script segment is generated automatically by AutoPilot
 
 set id 28
-set name crypto_sign_open_fYi
+set name crypto_sign_open_mux_42_1_1_1
 set corename simcore_mux
 set op mux
 set stage_num 1
@@ -86,7 +86,7 @@ puts "@W \[IMPL-101\] Cannot find ::AESL_LIB_VIRTEX::xil_gen_pipemux, check your
 
 
 set id 29
-set name crypto_sign_open_g8j
+set name crypto_sign_open_mux_42_32_1_1
 set corename simcore_mux
 set op mux
 set stage_num 1
@@ -171,7 +171,7 @@ puts "@W \[IMPL-101\] Cannot find ::AESL_LIB_VIRTEX::xil_gen_pipemux, check your
 
 
 set id 30
-set name crypto_sign_open_fYi
+set name crypto_sign_open_mux_42_1_1_1
 set corename simcore_mux
 set op mux
 set stage_num 1
@@ -256,7 +256,7 @@ puts "@W \[IMPL-101\] Cannot find ::AESL_LIB_VIRTEX::xil_gen_pipemux, check your
 
 
 set id 32
-set name crypto_sign_open_fYi
+set name crypto_sign_open_mux_42_1_1_1
 set corename simcore_mux
 set op mux
 set stage_num 1
@@ -341,7 +341,7 @@ puts "@W \[IMPL-101\] Cannot find ::AESL_LIB_VIRTEX::xil_gen_pipemux, check your
 
 
 set id 34
-set name crypto_sign_open_fYi
+set name crypto_sign_open_mux_42_1_1_1
 set corename simcore_mux
 set op mux
 set stage_num 1
@@ -428,7 +428,7 @@ puts "@W \[IMPL-101\] Cannot find ::AESL_LIB_VIRTEX::xil_gen_pipemux, check your
 # Memory (RAM/ROM)  definition:
 set ID 79
 set hasByteEnable 0
-set MemName ColumnGenerator_ieOg
+set MemName ColumnGenerator_init_stream
 set CoreName ap_simcore_mem
 set PortList { 2 3 }
 set DataWd 3

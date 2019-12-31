@@ -3,7 +3,7 @@
 # Memory (RAM/ROM)  definition:
 set ID 12
 set hasByteEnable 0
-set MemName AES256_ECB_1_ctx_bkb
+set MemName AES256_ECB_1_ctx_RoundKey
 set CoreName ap_simcore_mem
 set PortList { 2 2 }
 set DataWd 8

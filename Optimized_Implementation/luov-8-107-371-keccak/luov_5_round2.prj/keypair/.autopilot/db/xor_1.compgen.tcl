@@ -1,7 +1,7 @@
 # This script segment is generated automatically by AutoPilot
 
 set id 134
-set name crypto_sign_keypamb6
+set name crypto_sign_keypair_mac_muladd_7ns_8ns_7ns_14_1_1
 set corename simcore_mac
 set op mac
 set stage_num 1
@@ -11,11 +11,11 @@ set in0_width 7
 set in0_signed 0
 set in1_width 8
 set in1_signed 0
-set in2_width 8
+set in2_width 7
 set in2_signed 0
 set out_width 14
 set exp i0*i1+i2
-set arg_lists {i0 {7 0 +} i1 {8 0 +} m {14 0 +} i2 {8 0 +} p {14 0 +} c_reg {1} rnd {0} acc {0} }
+set arg_lists {i0 {7 0 +} i1 {8 0 +} m {14 0 +} i2 {7 0 +} p {14 0 +} c_reg {1} rnd {0} acc {0} }
 set TrueReset 0
 if {${::AESL::PGuard_simmodel_gen}} {
 if {[info proc ap_gen_simcore_mac] == "ap_gen_simcore_mac"} {
@@ -113,16 +113,16 @@ if {${::AESL::PGuard_autoexp_gen}} {
 if {[info proc ::AESL_LIB_XILADAPTER::xil_bram_gen] == "::AESL_LIB_XILADAPTER::xil_bram_gen"} {
 eval "::AESL_LIB_XILADAPTER::xil_bram_gen { \
     id 139 \
-    name b_components_0 \
+    name b_0_components \
     reset_level 1 \
     sync_rst true \
     dir I \
-    corename b_components_0 \
+    corename b_0_components \
     op interface \
-    ports { b_components_0_address0 { O 7 vector } b_components_0_ce0 { O 1 bit } b_components_0_q0 { I 64 vector } } \
+    ports { b_0_components_address0 { O 7 vector } b_0_components_ce0 { O 1 bit } b_0_components_q0 { I 64 vector } } \
 } "
 } else {
-puts "@W \[IMPL-110\] Cannot find bus interface model in the library. Ignored generation of bus interface for 'b_components_0'"
+puts "@W \[IMPL-110\] Cannot find bus interface model in the library. Ignored generation of bus interface for 'b_0_components'"
 }
 }
 
@@ -132,16 +132,16 @@ if {${::AESL::PGuard_autoexp_gen}} {
 if {[info proc ::AESL_LIB_XILADAPTER::xil_bram_gen] == "::AESL_LIB_XILADAPTER::xil_bram_gen"} {
 eval "::AESL_LIB_XILADAPTER::xil_bram_gen { \
     id 140 \
-    name b_components_1 \
+    name b_1_components \
     reset_level 1 \
     sync_rst true \
     dir I \
-    corename b_components_1 \
+    corename b_1_components \
     op interface \
-    ports { b_components_1_address0 { O 7 vector } b_components_1_ce0 { O 1 bit } b_components_1_q0 { I 64 vector } } \
+    ports { b_1_components_address0 { O 7 vector } b_1_components_ce0 { O 1 bit } b_1_components_q0 { I 64 vector } } \
 } "
 } else {
-puts "@W \[IMPL-110\] Cannot find bus interface model in the library. Ignored generation of bus interface for 'b_components_1'"
+puts "@W \[IMPL-110\] Cannot find bus interface model in the library. Ignored generation of bus interface for 'b_1_components'"
 }
 }
 
@@ -172,7 +172,7 @@ eval "cg_default_interface_gen_dc { \
     sync_rst true \
     corename dc_a_components_offset1 \
     op interface \
-    ports { a_components_offset1 { I 8 vector } } \
+    ports { a_components_offset1 { I 7 vector } } \
 } "
 }
 
@@ -242,6 +242,26 @@ eval "cg_default_interface_gen_reset { \
 }"
 } else {
 puts "@W \[IMPL-114\] Cannot find bus interface model in the library. Ignored generation of bus interface for '${PortName}'"
+}
+}
+
+
+# Adapter definition:
+set PortName ap_ce
+set DataWd 1 
+if {${::AESL::PGuard_autoexp_gen}} {
+if {[info proc cg_default_interface_gen_ce] == "cg_default_interface_gen_ce"} {
+eval "cg_default_interface_gen_ce { \
+    id -4 \
+    name ${PortName} \
+    reset_level 1 \
+    sync_rst true \
+    corename apif_ap_ce \
+    data_wd ${DataWd} \
+    op interface \
+}"
+} else {
+puts "@W \[IMPL-113\] Cannot find bus interface model in the library. Ignored generation of bus interface for '${PortName}'"
 }
 }
 

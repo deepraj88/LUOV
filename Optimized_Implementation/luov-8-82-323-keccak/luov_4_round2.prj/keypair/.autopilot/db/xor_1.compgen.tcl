@@ -1,7 +1,7 @@
 # This script segment is generated automatically by AutoPilot
 
 set id 134
-set name crypto_sign_keypamb6
+set name crypto_sign_keypair_mac_muladd_7ns_8ns_8ns_14_1_1
 set corename simcore_mac
 set op mac
 set stage_num 1
@@ -113,16 +113,16 @@ if {${::AESL::PGuard_autoexp_gen}} {
 if {[info proc ::AESL_LIB_XILADAPTER::xil_bram_gen] == "::AESL_LIB_XILADAPTER::xil_bram_gen"} {
 eval "::AESL_LIB_XILADAPTER::xil_bram_gen { \
     id 139 \
-    name b_components_0 \
+    name b_0_components \
     reset_level 1 \
     sync_rst true \
     dir I \
-    corename b_components_0 \
+    corename b_0_components \
     op interface \
-    ports { b_components_0_address0 { O 7 vector } b_components_0_ce0 { O 1 bit } b_components_0_q0 { I 64 vector } } \
+    ports { b_0_components_address0 { O 7 vector } b_0_components_ce0 { O 1 bit } b_0_components_q0 { I 64 vector } } \
 } "
 } else {
-puts "@W \[IMPL-110\] Cannot find bus interface model in the library. Ignored generation of bus interface for 'b_components_0'"
+puts "@W \[IMPL-110\] Cannot find bus interface model in the library. Ignored generation of bus interface for 'b_0_components'"
 }
 }
 
@@ -132,16 +132,16 @@ if {${::AESL::PGuard_autoexp_gen}} {
 if {[info proc ::AESL_LIB_XILADAPTER::xil_bram_gen] == "::AESL_LIB_XILADAPTER::xil_bram_gen"} {
 eval "::AESL_LIB_XILADAPTER::xil_bram_gen { \
     id 140 \
-    name b_components_1 \
+    name b_1_components \
     reset_level 1 \
     sync_rst true \
     dir I \
-    corename b_components_1 \
+    corename b_1_components \
     op interface \
-    ports { b_components_1_address0 { O 7 vector } b_components_1_ce0 { O 1 bit } b_components_1_q0 { I 64 vector } } \
+    ports { b_1_components_address0 { O 7 vector } b_1_components_ce0 { O 1 bit } b_1_components_q0 { I 64 vector } } \
 } "
 } else {
-puts "@W \[IMPL-110\] Cannot find bus interface model in the library. Ignored generation of bus interface for 'b_components_1'"
+puts "@W \[IMPL-110\] Cannot find bus interface model in the library. Ignored generation of bus interface for 'b_1_components'"
 }
 }
 
