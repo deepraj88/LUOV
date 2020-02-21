@@ -1,4 +1,4 @@
-<project xmlns="com.autoesl.autopilot.project" name="luov_5_round2.prj" top="crypto_sign">
+<project xmlns="com.autoesl.autopilot.project" name="luov_5_round2.prj" top="crypto_sign_keypair">
     <includePaths/>
     <libraryPaths/>
     <Simulation>

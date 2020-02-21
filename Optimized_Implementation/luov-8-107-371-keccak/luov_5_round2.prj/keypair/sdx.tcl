@@ -1,5 +1,5 @@
 # ==============================================================
-# File generated on Mon Dec 30 08:31:50 EST 2019
+# File generated on Tue Dec 31 18:40:10 EST 2019
 # Vivado(TM) HLS - High-Level Synthesis from C, C++ and SystemC v2018.3 (64-bit)
 # SW Build 2405991 on Thu Dec  6 23:36:41 MST 2018
 # IP Build 2404404 on Fri Dec  7 01:43:56 MST 2018
@@ -33,7 +33,7 @@ config_interface -m_axi_addr64=0
 config_interface -m_axi_offset=off
 config_interface -register_io=off
 config_interface -trim_dangling_port=0
-set_directive_unroll KeccakP1600_ExtractBytesInLane/KeccakP1600_ExtractBytesInLane_label3 -factor 4
+set_directive_unroll KeccakP1600_ExtractBytesInLane/KeccakP1600_ExtractBytesInLane_label3 -factor 8
 set_directive_pipeline KeccakP1600_ExtractBytesInLane/KeccakP1600_ExtractBytesInLane_label3 
 set_directive_allocation KeccakP1600_ExtractBytesInLane KeccakP1600_ExtractBytesInLane -limit 1 -type function
 set_directive_inline KeccakP1600_ExtractBytesInLane 
@@ -41,19 +41,19 @@ set_directive_allocation KeccakP1600_AddBytesInLane KeccakP1600_AddBytesInLane -
 set_directive_inline KeccakP1600_AddBytesInLane 
 set_directive_allocation KeccakP1600_AddLanes KeccakP1600_AddLanes -limit 1 -type function
 set_directive_inline KeccakP1600_AddLanes 
-set_directive_unroll calculateQ2/calculateQ2_label13 -factor 4
+set_directive_unroll calculateQ2/calculateQ2_label13 -factor 8
 set_directive_pipeline calculateQ2/calculateQ2_label13 
-set_directive_unroll calculateQ2/calculateQ2_label14 -factor 4
+set_directive_unroll calculateQ2/calculateQ2_label14 -factor 8
 set_directive_pipeline calculateQ2/calculateQ2_label14 
-set_directive_unroll calculateQ2/calculateQ2_label15 -factor 4
+set_directive_unroll calculateQ2/calculateQ2_label15 -factor 8
 set_directive_pipeline calculateQ2/calculateQ2_label15 
-set_directive_unroll calculateQ2/calculateQ2_label16 -factor 4
+set_directive_unroll calculateQ2/calculateQ2_label16 -factor 8
 set_directive_pipeline calculateQ2/calculateQ2_label16 
-set_directive_unroll calculateQ2/calculateQ2_label17 -factor 4
+set_directive_unroll calculateQ2/calculateQ2_label17 -factor 8
 set_directive_pipeline calculateQ2/calculateQ2_label17 
-set_directive_unroll calculateQ2/calculateQ2_label18 -factor 4
+set_directive_unroll calculateQ2/calculateQ2_label18 -factor 8
 set_directive_pipeline calculateQ2/calculateQ2_label18 
-set_directive_unroll Next_Column/Next_Column_label7 -factor 4
+set_directive_unroll Next_Column/Next_Column_label7 -factor 8
 set_directive_pipeline Next_Column/Next_Column_label7 
-set_directive_unroll Next_Column/Next_Column_label8 -factor 4
+set_directive_unroll Next_Column/Next_Column_label8 -factor 8
 set_directive_pipeline Next_Column/Next_Column_label8 

@@ -14,3 +14,4 @@ find * -name "*tcls" | xargs git add
 git add git_commands.sh
 git add README.md
 git add Hw_Implementation_Docs
+git add LICENSE 

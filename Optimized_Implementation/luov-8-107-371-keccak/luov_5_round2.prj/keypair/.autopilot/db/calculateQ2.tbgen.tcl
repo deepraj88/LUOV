@@ -43254,3 +43254,626 @@ set Spec2ImplPortList {
 	T_components { ap_memory {  { T_components_address0 mem_address 1 10 }  { T_components_ce0 mem_ce 1 1 }  { T_components_q0 mem_dout 0 64 }  { T_components_address1 MemPortADDR2 1 10 }  { T_components_ce1 MemPortCE2 1 1 }  { T_components_q1 MemPortDOUT2 0 64 } } }
 	pk { ap_memory {  { pk_address0 mem_address 1 17 }  { pk_ce0 mem_ce 1 1 }  { pk_we0 mem_we 1 1 }  { pk_d0 mem_din 1 8 }  { pk_q0 mem_dout 0 8 } } }
 }
+set moduleName calculateQ2
+set isTaskLevelControl 1
+set isCombinational 0
+set isDatapathOnly 0
+set isPipelined 0
+set pipeline_type none
+set FunctionProtocol ap_ctrl_hs
+set isOneStateSeq 0
+set ProfileFlag 0
+set StallSigGenFlag 0
+set isEnableWaveformDebug 1
+set C_modelName {calculateQ2}
+set C_modelType { void 0 }
+set C_modelArgList {
+	{ T_components int 64 regular {array 744 { 1 1 } 1 1 }  }
+	{ pk int 8 regular {array 77313 { 2 3 } 1 1 }  }
+}
+set C_modelArgMapList {[ 
+	{ "Name" : "T_components", "interface" : "memory", "bitwidth" : 64, "direction" : "READONLY"} , 
+ 	{ "Name" : "pk", "interface" : "memory", "bitwidth" : 8, "direction" : "READWRITE"} ]}
+# RTL Port declarations: 
+set portNum 17
+set portList { 
+	{ ap_clk sc_in sc_logic 1 clock -1 } 
+	{ ap_rst sc_in sc_logic 1 reset -1 active_high_sync } 
+	{ ap_start sc_in sc_logic 1 start -1 } 
+	{ ap_done sc_out sc_logic 1 predone -1 } 
+	{ ap_idle sc_out sc_logic 1 done -1 } 
+	{ ap_ready sc_out sc_logic 1 ready -1 } 
+	{ T_components_address0 sc_out sc_lv 10 signal 0 } 
+	{ T_components_ce0 sc_out sc_logic 1 signal 0 } 
+	{ T_components_q0 sc_in sc_lv 64 signal 0 } 
+	{ T_components_address1 sc_out sc_lv 10 signal 0 } 
+	{ T_components_ce1 sc_out sc_logic 1 signal 0 } 
+	{ T_components_q1 sc_in sc_lv 64 signal 0 } 
+	{ pk_address0 sc_out sc_lv 17 signal 1 } 
+	{ pk_ce0 sc_out sc_logic 1 signal 1 } 
+	{ pk_we0 sc_out sc_logic 1 signal 1 } 
+	{ pk_d0 sc_out sc_lv 8 signal 1 } 
+	{ pk_q0 sc_in sc_lv 8 signal 1 } 
+}
+set NewPortList {[ 
+	{ "name": "ap_clk", "direction": "in", "datatype": "sc_logic", "bitwidth":1, "type": "clock", "bundle":{"name": "ap_clk", "role": "default" }} , 
+ 	{ "name": "ap_rst", "direction": "in", "datatype": "sc_logic", "bitwidth":1, "type": "reset", "bundle":{"name": "ap_rst", "role": "default" }} , 
+ 	{ "name": "ap_start", "direction": "in", "datatype": "sc_logic", "bitwidth":1, "type": "start", "bundle":{"name": "ap_start", "role": "default" }} , 
+ 	{ "name": "ap_done", "direction": "out", "datatype": "sc_logic", "bitwidth":1, "type": "predone", "bundle":{"name": "ap_done", "role": "default" }} , 
+ 	{ "name": "ap_idle", "direction": "out", "datatype": "sc_logic", "bitwidth":1, "type": "done", "bundle":{"name": "ap_idle", "role": "default" }} , 
+ 	{ "name": "ap_ready", "direction": "out", "datatype": "sc_logic", "bitwidth":1, "type": "ready", "bundle":{"name": "ap_ready", "role": "default" }} , 
+ 	{ "name": "T_components_address0", "direction": "out", "datatype": "sc_lv", "bitwidth":10, "type": "signal", "bundle":{"name": "T_components", "role": "address0" }} , 
+ 	{ "name": "T_components_ce0", "direction": "out", "datatype": "sc_logic", "bitwidth":1, "type": "signal", "bundle":{"name": "T_components", "role": "ce0" }} , 
+ 	{ "name": "T_components_q0", "direction": "in", "datatype": "sc_lv", "bitwidth":64, "type": "signal", "bundle":{"name": "T_components", "role": "q0" }} , 
+ 	{ "name": "T_components_address1", "direction": "out", "datatype": "sc_lv", "bitwidth":10, "type": "signal", "bundle":{"name": "T_components", "role": "address1" }} , 
+ 	{ "name": "T_components_ce1", "direction": "out", "datatype": "sc_logic", "bitwidth":1, "type": "signal", "bundle":{"name": "T_components", "role": "ce1" }} , 
+ 	{ "name": "T_components_q1", "direction": "in", "datatype": "sc_lv", "bitwidth":64, "type": "signal", "bundle":{"name": "T_components", "role": "q1" }} , 
+ 	{ "name": "pk_address0", "direction": "out", "datatype": "sc_lv", "bitwidth":17, "type": "signal", "bundle":{"name": "pk", "role": "address0" }} , 
+ 	{ "name": "pk_ce0", "direction": "out", "datatype": "sc_logic", "bitwidth":1, "type": "signal", "bundle":{"name": "pk", "role": "ce0" }} , 
+ 	{ "name": "pk_we0", "direction": "out", "datatype": "sc_logic", "bitwidth":1, "type": "signal", "bundle":{"name": "pk", "role": "we0" }} , 
+ 	{ "name": "pk_d0", "direction": "out", "datatype": "sc_lv", "bitwidth":8, "type": "signal", "bundle":{"name": "pk", "role": "d0" }} , 
+ 	{ "name": "pk_q0", "direction": "in", "datatype": "sc_lv", "bitwidth":8, "type": "signal", "bundle":{"name": "pk", "role": "q0" }}  ]}
+
+set RtlHierarchyInfo {[
+	{"ID" : "0", "Level" : "0", "Path" : "`AUTOTB_DUT_INST", "Parent" : "", "Child" : ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "25", "32", "34", "36", "37"],
+		"CDFG" : "calculateQ2",
+		"Protocol" : "ap_ctrl_hs",
+		"ControlExist" : "1", "ap_start" : "1", "ap_ready" : "1", "ap_done" : "1", "ap_continue" : "0", "ap_idle" : "1",
+		"Pipeline" : "None", "UnalignedPipeline" : "0", "RewindPipeline" : "0", "ProcessNetwork" : "0",
+		"II" : "0",
+		"VariableLatency" : "1", "ExactLatency" : "-1", "EstimateLatencyMin" : "-1", "EstimateLatencyMax" : "-1",
+		"Combinational" : "0",
+		"Datapath" : "0",
+		"ClockEnable" : "0",
+		"HasSubDataflow" : "0",
+		"InDataflowNetwork" : "0",
+		"HasNonBlockingOperation" : "0",
+		"WaitState" : [
+			{"State" : "ap_ST_fsm_state2", "FSM" : "ap_CS_fsm", "SubInstance" : "grp_ColumnGenerator_init_fu_2097"},
+			{"State" : "ap_ST_fsm_state16", "FSM" : "ap_CS_fsm", "SubInstance" : "grp_Next_Column_fu_2117"},
+			{"State" : "ap_ST_fsm_state151", "FSM" : "ap_CS_fsm", "SubInstance" : "grp_Next_Column_fu_2117"}],
+		"Port" : [
+			{"Name" : "T_components", "Type" : "Memory", "Direction" : "I"},
+			{"Name" : "pk", "Type" : "Memory", "Direction" : "IO",
+				"SubConnect" : [
+					{"ID" : "11", "SubInstance" : "grp_ColumnGenerator_init_fu_2097", "Port" : "key"}]},
+			{"Name" : "KeccakF1600RoundCons", "Type" : "Memory", "Direction" : "I",
+				"SubConnect" : [
+					{"ID" : "25", "SubInstance" : "grp_Next_Column_fu_2117", "Port" : "KeccakF1600RoundCons"},
+					{"ID" : "11", "SubInstance" : "grp_ColumnGenerator_init_fu_2097", "Port" : "KeccakF1600RoundCons"}]}]},
+	{"ID" : "1", "Level" : "1", "Path" : "`AUTOTB_DUT_INST.TempMat_0_component_U", "Parent" : "0"},
+	{"ID" : "2", "Level" : "1", "Path" : "`AUTOTB_DUT_INST.TempMat_1_component_U", "Parent" : "0"},
+	{"ID" : "3", "Level" : "1", "Path" : "`AUTOTB_DUT_INST.CG_states_sponge_sta_U", "Parent" : "0"},
+	{"ID" : "4", "Level" : "1", "Path" : "`AUTOTB_DUT_INST.CG_states_sponge_rat_U", "Parent" : "0"},
+	{"ID" : "5", "Level" : "1", "Path" : "`AUTOTB_DUT_INST.CG_states_sponge_byt_U", "Parent" : "0"},
+	{"ID" : "6", "Level" : "1", "Path" : "`AUTOTB_DUT_INST.CG_states_sponge_squ_U", "Parent" : "0"},
+	{"ID" : "7", "Level" : "1", "Path" : "`AUTOTB_DUT_INST.CG_states_fixedOutpu_U", "Parent" : "0"},
+	{"ID" : "8", "Level" : "1", "Path" : "`AUTOTB_DUT_INST.CG_states_delimitedS_U", "Parent" : "0"},
+	{"ID" : "9", "Level" : "1", "Path" : "`AUTOTB_DUT_INST.CG_blocks_U", "Parent" : "0"},
+	{"ID" : "10", "Level" : "1", "Path" : "`AUTOTB_DUT_INST.temp_components_U", "Parent" : "0"},
+	{"ID" : "11", "Level" : "1", "Path" : "`AUTOTB_DUT_INST.grp_ColumnGenerator_init_fu_2097", "Parent" : "0", "Child" : ["12", "13", "20", "23", "24"],
+		"CDFG" : "ColumnGenerator_init",
+		"Protocol" : "ap_ctrl_hs",
+		"ControlExist" : "1", "ap_start" : "1", "ap_ready" : "1", "ap_done" : "1", "ap_continue" : "0", "ap_idle" : "1",
+		"Pipeline" : "None", "UnalignedPipeline" : "0", "RewindPipeline" : "0", "ProcessNetwork" : "0",
+		"II" : "0",
+		"VariableLatency" : "1", "ExactLatency" : "-1", "EstimateLatencyMin" : "-1", "EstimateLatencyMax" : "-1",
+		"Combinational" : "0",
+		"Datapath" : "0",
+		"ClockEnable" : "0",
+		"HasSubDataflow" : "0",
+		"InDataflowNetwork" : "0",
+		"HasNonBlockingOperation" : "0",
+		"WaitState" : [
+			{"State" : "ap_ST_fsm_state12", "FSM" : "ap_CS_fsm", "SubInstance" : "grp_KeccakWidth1600_Spon_2_fu_309"},
+			{"State" : "ap_ST_fsm_state9", "FSM" : "ap_CS_fsm", "SubInstance" : "grp_KeccakP1600_Permute_1_fu_326"},
+			{"State" : "ap_ST_fsm_state18", "FSM" : "ap_CS_fsm", "SubInstance" : "grp_KeccakP1600_Permute_1_fu_326"},
+			{"State" : "ap_ST_fsm_state4", "FSM" : "ap_CS_fsm", "SubInstance" : "grp_KeccakP1600_Initiali_1_fu_336"},
+			{"State" : "ap_ST_fsm_state7", "FSM" : "ap_CS_fsm", "SubInstance" : "grp_KeccakP1600_AddBytes_1_fu_344"}],
+		"Port" : [
+			{"Name" : "col_gen_states_spong", "Type" : "Memory", "Direction" : "IO",
+				"SubConnect" : [
+					{"ID" : "24", "SubInstance" : "grp_KeccakP1600_AddBytes_1_fu_344", "Port" : "state"},
+					{"ID" : "13", "SubInstance" : "grp_KeccakWidth1600_Spon_2_fu_309", "Port" : "instance_state"},
+					{"ID" : "23", "SubInstance" : "grp_KeccakP1600_Initiali_1_fu_336", "Port" : "state"},
+					{"ID" : "20", "SubInstance" : "grp_KeccakP1600_Permute_1_fu_326", "Port" : "state"}]},
+			{"Name" : "col_gen_states_spong_18", "Type" : "Memory", "Direction" : "IO"},
+			{"Name" : "col_gen_states_spong_19", "Type" : "Memory", "Direction" : "O"},
+			{"Name" : "col_gen_states_spong_20", "Type" : "Memory", "Direction" : "IO"},
+			{"Name" : "col_gen_states_fixed", "Type" : "Memory", "Direction" : "O"},
+			{"Name" : "col_gen_states_delim", "Type" : "Memory", "Direction" : "O"},
+			{"Name" : "key", "Type" : "Memory", "Direction" : "I",
+				"SubConnect" : [
+					{"ID" : "24", "SubInstance" : "grp_KeccakP1600_AddBytes_1_fu_344", "Port" : "data"}]},
+			{"Name" : "KeccakF1600RoundCons", "Type" : "Memory", "Direction" : "I",
+				"SubConnect" : [
+					{"ID" : "13", "SubInstance" : "grp_KeccakWidth1600_Spon_2_fu_309", "Port" : "KeccakF1600RoundCons"},
+					{"ID" : "20", "SubInstance" : "grp_KeccakP1600_Permute_1_fu_326", "Port" : "KeccakF1600RoundCons"}]}]},
+	{"ID" : "12", "Level" : "2", "Path" : "`AUTOTB_DUT_INST.grp_ColumnGenerator_init_fu_2097.stream_U", "Parent" : "11"},
+	{"ID" : "13", "Level" : "2", "Path" : "`AUTOTB_DUT_INST.grp_ColumnGenerator_init_fu_2097.grp_KeccakWidth1600_Spon_2_fu_309", "Parent" : "11", "Child" : ["14", "17", "18"],
+		"CDFG" : "KeccakWidth1600_Spon_2",
+		"Protocol" : "ap_ctrl_hs",
+		"ControlExist" : "1", "ap_start" : "1", "ap_ready" : "1", "ap_done" : "1", "ap_continue" : "0", "ap_idle" : "1",
+		"Pipeline" : "None", "UnalignedPipeline" : "0", "RewindPipeline" : "0", "ProcessNetwork" : "0",
+		"II" : "0",
+		"VariableLatency" : "1", "ExactLatency" : "-1", "EstimateLatencyMin" : "-1", "EstimateLatencyMax" : "-1",
+		"Combinational" : "0",
+		"Datapath" : "0",
+		"ClockEnable" : "0",
+		"HasSubDataflow" : "0",
+		"InDataflowNetwork" : "0",
+		"HasNonBlockingOperation" : "0",
+		"WaitState" : [
+			{"State" : "ap_ST_fsm_state6", "FSM" : "ap_CS_fsm", "SubInstance" : "grp_KeccakP1600_Permute_1_fu_170"},
+			{"State" : "ap_ST_fsm_state11", "FSM" : "ap_CS_fsm", "SubInstance" : "grp_KeccakP1600_Permute_1_fu_170"},
+			{"State" : "ap_ST_fsm_state4", "FSM" : "ap_CS_fsm", "SubInstance" : "grp_KeccakP1600_AddBytes_2_fu_179"},
+			{"State" : "ap_ST_fsm_state9", "FSM" : "ap_CS_fsm", "SubInstance" : "grp_KeccakP1600_AddBytes_2_fu_179"},
+			{"State" : "ap_ST_fsm_state7", "FSM" : "ap_CS_fsm", "SubInstance" : "grp_KeccakF1600_FastLoop_fu_193"}],
+		"Port" : [
+			{"Name" : "instance_state", "Type" : "Memory", "Direction" : "IO",
+				"SubConnect" : [
+					{"ID" : "18", "SubInstance" : "grp_KeccakF1600_FastLoop_fu_193", "Port" : "state"},
+					{"ID" : "17", "SubInstance" : "grp_KeccakP1600_AddBytes_2_fu_179", "Port" : "state"},
+					{"ID" : "14", "SubInstance" : "grp_KeccakP1600_Permute_1_fu_170", "Port" : "state"}]},
+			{"Name" : "instance_state_offset", "Type" : "None", "Direction" : "I"},
+			{"Name" : "instance_rate_read", "Type" : "None", "Direction" : "I"},
+			{"Name" : "instance_byteIOIndex_read", "Type" : "None", "Direction" : "I"},
+			{"Name" : "instance_squeezing_read", "Type" : "None", "Direction" : "I"},
+			{"Name" : "data", "Type" : "Memory", "Direction" : "I",
+				"SubConnect" : [
+					{"ID" : "17", "SubInstance" : "grp_KeccakP1600_AddBytes_2_fu_179", "Port" : "data"}]},
+			{"Name" : "KeccakF1600RoundCons", "Type" : "Memory", "Direction" : "I",
+				"SubConnect" : [
+					{"ID" : "14", "SubInstance" : "grp_KeccakP1600_Permute_1_fu_170", "Port" : "KeccakF1600RoundCons"}]}]},
+	{"ID" : "14", "Level" : "3", "Path" : "`AUTOTB_DUT_INST.grp_ColumnGenerator_init_fu_2097.grp_KeccakWidth1600_Spon_2_fu_309.grp_KeccakP1600_Permute_1_fu_170", "Parent" : "13", "Child" : ["15", "16"],
+		"CDFG" : "KeccakP1600_Permute_1",
+		"Protocol" : "ap_ctrl_hs",
+		"ControlExist" : "1", "ap_start" : "1", "ap_ready" : "1", "ap_done" : "1", "ap_continue" : "0", "ap_idle" : "1",
+		"Pipeline" : "None", "UnalignedPipeline" : "0", "RewindPipeline" : "0", "ProcessNetwork" : "0",
+		"II" : "0",
+		"VariableLatency" : "1", "ExactLatency" : "-1", "EstimateLatencyMin" : "869", "EstimateLatencyMax" : "869",
+		"Combinational" : "0",
+		"Datapath" : "0",
+		"ClockEnable" : "0",
+		"HasSubDataflow" : "0",
+		"InDataflowNetwork" : "0",
+		"HasNonBlockingOperation" : "0",
+		"Port" : [
+			{"Name" : "state", "Type" : "Memory", "Direction" : "IO"},
+			{"Name" : "state_offset", "Type" : "None", "Direction" : "I"},
+			{"Name" : "KeccakF1600RoundCons", "Type" : "Memory", "Direction" : "I"}]},
+	{"ID" : "15", "Level" : "4", "Path" : "`AUTOTB_DUT_INST.grp_ColumnGenerator_init_fu_2097.grp_KeccakWidth1600_Spon_2_fu_309.grp_KeccakP1600_Permute_1_fu_170.KeccakF1600RoundCons_U", "Parent" : "14"},
+	{"ID" : "16", "Level" : "4", "Path" : "`AUTOTB_DUT_INST.grp_ColumnGenerator_init_fu_2097.grp_KeccakWidth1600_Spon_2_fu_309.grp_KeccakP1600_Permute_1_fu_170.stateAsLanes2_U", "Parent" : "14"},
+	{"ID" : "17", "Level" : "3", "Path" : "`AUTOTB_DUT_INST.grp_ColumnGenerator_init_fu_2097.grp_KeccakWidth1600_Spon_2_fu_309.grp_KeccakP1600_AddBytes_2_fu_179", "Parent" : "13",
+		"CDFG" : "KeccakP1600_AddBytes_2",
+		"Protocol" : "ap_ctrl_hs",
+		"ControlExist" : "1", "ap_start" : "1", "ap_ready" : "1", "ap_done" : "1", "ap_continue" : "0", "ap_idle" : "1",
+		"Pipeline" : "None", "UnalignedPipeline" : "0", "RewindPipeline" : "0", "ProcessNetwork" : "0",
+		"II" : "0",
+		"VariableLatency" : "1", "ExactLatency" : "-1", "EstimateLatencyMin" : "-1", "EstimateLatencyMax" : "-1",
+		"Combinational" : "0",
+		"Datapath" : "0",
+		"ClockEnable" : "0",
+		"HasSubDataflow" : "0",
+		"InDataflowNetwork" : "0",
+		"HasNonBlockingOperation" : "0",
+		"Port" : [
+			{"Name" : "state", "Type" : "Memory", "Direction" : "IO"},
+			{"Name" : "state_offset", "Type" : "None", "Direction" : "I"},
+			{"Name" : "data", "Type" : "Memory", "Direction" : "I"},
+			{"Name" : "data_offset", "Type" : "None", "Direction" : "I"},
+			{"Name" : "offset", "Type" : "None", "Direction" : "I"},
+			{"Name" : "length_r", "Type" : "None", "Direction" : "I"}]},
+	{"ID" : "18", "Level" : "3", "Path" : "`AUTOTB_DUT_INST.grp_ColumnGenerator_init_fu_2097.grp_KeccakWidth1600_Spon_2_fu_309.grp_KeccakF1600_FastLoop_fu_193", "Parent" : "13", "Child" : ["19"],
+		"CDFG" : "KeccakF1600_FastLoop",
+		"Protocol" : "ap_ctrl_hs",
+		"ControlExist" : "1", "ap_start" : "1", "ap_ready" : "1", "ap_done" : "1", "ap_continue" : "0", "ap_idle" : "1",
+		"Pipeline" : "None", "UnalignedPipeline" : "0", "RewindPipeline" : "0", "ProcessNetwork" : "0",
+		"II" : "0",
+		"VariableLatency" : "1", "ExactLatency" : "-1", "EstimateLatencyMin" : "-1", "EstimateLatencyMax" : "-1",
+		"Combinational" : "0",
+		"Datapath" : "0",
+		"ClockEnable" : "0",
+		"HasSubDataflow" : "0",
+		"InDataflowNetwork" : "0",
+		"HasNonBlockingOperation" : "0",
+		"Port" : [
+			{"Name" : "state", "Type" : "Memory", "Direction" : "I"},
+			{"Name" : "state_offset", "Type" : "None", "Direction" : "I"}]},
+	{"ID" : "19", "Level" : "4", "Path" : "`AUTOTB_DUT_INST.grp_ColumnGenerator_init_fu_2097.grp_KeccakWidth1600_Spon_2_fu_309.grp_KeccakF1600_FastLoop_fu_193.stateAsLanes_U", "Parent" : "18"},
+	{"ID" : "20", "Level" : "2", "Path" : "`AUTOTB_DUT_INST.grp_ColumnGenerator_init_fu_2097.grp_KeccakP1600_Permute_1_fu_326", "Parent" : "11", "Child" : ["21", "22"],
+		"CDFG" : "KeccakP1600_Permute_1",
+		"Protocol" : "ap_ctrl_hs",
+		"ControlExist" : "1", "ap_start" : "1", "ap_ready" : "1", "ap_done" : "1", "ap_continue" : "0", "ap_idle" : "1",
+		"Pipeline" : "None", "UnalignedPipeline" : "0", "RewindPipeline" : "0", "ProcessNetwork" : "0",
+		"II" : "0",
+		"VariableLatency" : "1", "ExactLatency" : "-1", "EstimateLatencyMin" : "869", "EstimateLatencyMax" : "869",
+		"Combinational" : "0",
+		"Datapath" : "0",
+		"ClockEnable" : "0",
+		"HasSubDataflow" : "0",
+		"InDataflowNetwork" : "0",
+		"HasNonBlockingOperation" : "0",
+		"Port" : [
+			{"Name" : "state", "Type" : "Memory", "Direction" : "IO"},
+			{"Name" : "state_offset", "Type" : "None", "Direction" : "I"},
+			{"Name" : "KeccakF1600RoundCons", "Type" : "Memory", "Direction" : "I"}]},
+	{"ID" : "21", "Level" : "3", "Path" : "`AUTOTB_DUT_INST.grp_ColumnGenerator_init_fu_2097.grp_KeccakP1600_Permute_1_fu_326.KeccakF1600RoundCons_U", "Parent" : "20"},
+	{"ID" : "22", "Level" : "3", "Path" : "`AUTOTB_DUT_INST.grp_ColumnGenerator_init_fu_2097.grp_KeccakP1600_Permute_1_fu_326.stateAsLanes2_U", "Parent" : "20"},
+	{"ID" : "23", "Level" : "2", "Path" : "`AUTOTB_DUT_INST.grp_ColumnGenerator_init_fu_2097.grp_KeccakP1600_Initiali_1_fu_336", "Parent" : "11",
+		"CDFG" : "KeccakP1600_Initiali_1",
+		"Protocol" : "ap_ctrl_hs",
+		"ControlExist" : "1", "ap_start" : "1", "ap_ready" : "1", "ap_done" : "1", "ap_continue" : "0", "ap_idle" : "1",
+		"Pipeline" : "None", "UnalignedPipeline" : "0", "RewindPipeline" : "0", "ProcessNetwork" : "0",
+		"II" : "0",
+		"VariableLatency" : "1", "ExactLatency" : "-1", "EstimateLatencyMin" : "224", "EstimateLatencyMax" : "224",
+		"Combinational" : "0",
+		"Datapath" : "0",
+		"ClockEnable" : "0",
+		"HasSubDataflow" : "0",
+		"InDataflowNetwork" : "0",
+		"HasNonBlockingOperation" : "0",
+		"Port" : [
+			{"Name" : "state", "Type" : "Memory", "Direction" : "O"},
+			{"Name" : "state_offset", "Type" : "None", "Direction" : "I"}]},
+	{"ID" : "24", "Level" : "2", "Path" : "`AUTOTB_DUT_INST.grp_ColumnGenerator_init_fu_2097.grp_KeccakP1600_AddBytes_1_fu_344", "Parent" : "11",
+		"CDFG" : "KeccakP1600_AddBytes_1",
+		"Protocol" : "ap_ctrl_hs",
+		"ControlExist" : "1", "ap_start" : "1", "ap_ready" : "1", "ap_done" : "1", "ap_continue" : "0", "ap_idle" : "1",
+		"Pipeline" : "None", "UnalignedPipeline" : "0", "RewindPipeline" : "0", "ProcessNetwork" : "0",
+		"II" : "0",
+		"VariableLatency" : "1", "ExactLatency" : "-1", "EstimateLatencyMin" : "-1", "EstimateLatencyMax" : "-1",
+		"Combinational" : "0",
+		"Datapath" : "0",
+		"ClockEnable" : "0",
+		"HasSubDataflow" : "0",
+		"InDataflowNetwork" : "0",
+		"HasNonBlockingOperation" : "0",
+		"Port" : [
+			{"Name" : "state", "Type" : "Memory", "Direction" : "IO"},
+			{"Name" : "state_offset", "Type" : "None", "Direction" : "I"},
+			{"Name" : "data", "Type" : "Memory", "Direction" : "I"},
+			{"Name" : "data_offset", "Type" : "None", "Direction" : "I"},
+			{"Name" : "offset", "Type" : "None", "Direction" : "I"},
+			{"Name" : "length_r", "Type" : "None", "Direction" : "I"}]},
+	{"ID" : "25", "Level" : "1", "Path" : "`AUTOTB_DUT_INST.grp_Next_Column_fu_2117", "Parent" : "0", "Child" : ["26"],
+		"CDFG" : "Next_Column",
+		"Protocol" : "ap_ctrl_hs",
+		"ControlExist" : "1", "ap_start" : "1", "ap_ready" : "1", "ap_done" : "1", "ap_continue" : "0", "ap_idle" : "1",
+		"Pipeline" : "None", "UnalignedPipeline" : "0", "RewindPipeline" : "0", "ProcessNetwork" : "0",
+		"II" : "0",
+		"VariableLatency" : "1", "ExactLatency" : "-1", "EstimateLatencyMin" : "-1", "EstimateLatencyMax" : "-1",
+		"Combinational" : "0",
+		"Datapath" : "0",
+		"ClockEnable" : "0",
+		"HasSubDataflow" : "0",
+		"InDataflowNetwork" : "0",
+		"HasNonBlockingOperation" : "0",
+		"WaitState" : [
+			{"State" : "ap_ST_fsm_state5", "FSM" : "ap_CS_fsm", "SubInstance" : "grp_KeccakWidth1600_Spon_fu_247"}],
+		"Port" : [
+			{"Name" : "col_gen_states_spong", "Type" : "Memory", "Direction" : "IO",
+				"SubConnect" : [
+					{"ID" : "26", "SubInstance" : "grp_KeccakWidth1600_Spon_fu_247", "Port" : "instance_state"}]},
+			{"Name" : "col_gen_states_spong_5", "Type" : "Memory", "Direction" : "I"},
+			{"Name" : "col_gen_states_spong_6", "Type" : "Memory", "Direction" : "IO"},
+			{"Name" : "col_gen_states_spong_7", "Type" : "Memory", "Direction" : "IO"},
+			{"Name" : "col_gen_blocks", "Type" : "Memory", "Direction" : "IO",
+				"SubConnect" : [
+					{"ID" : "26", "SubInstance" : "grp_KeccakWidth1600_Spon_fu_247", "Port" : "data"}]},
+			{"Name" : "col_gen_cols_used_re", "Type" : "None", "Direction" : "I"},
+			{"Name" : "KeccakF1600RoundCons", "Type" : "Memory", "Direction" : "I",
+				"SubConnect" : [
+					{"ID" : "26", "SubInstance" : "grp_KeccakWidth1600_Spon_fu_247", "Port" : "KeccakF1600RoundCons"}]}]},
+	{"ID" : "26", "Level" : "2", "Path" : "`AUTOTB_DUT_INST.grp_Next_Column_fu_2117.grp_KeccakWidth1600_Spon_fu_247", "Parent" : "25", "Child" : ["27", "30"],
+		"CDFG" : "KeccakWidth1600_Spon",
+		"Protocol" : "ap_ctrl_hs",
+		"ControlExist" : "1", "ap_start" : "1", "ap_ready" : "1", "ap_done" : "1", "ap_continue" : "0", "ap_idle" : "1",
+		"Pipeline" : "None", "UnalignedPipeline" : "0", "RewindPipeline" : "0", "ProcessNetwork" : "0",
+		"II" : "0",
+		"VariableLatency" : "1", "ExactLatency" : "-1", "EstimateLatencyMin" : "-1", "EstimateLatencyMax" : "-1",
+		"Combinational" : "0",
+		"Datapath" : "0",
+		"ClockEnable" : "0",
+		"HasSubDataflow" : "0",
+		"InDataflowNetwork" : "0",
+		"HasNonBlockingOperation" : "0",
+		"WaitState" : [
+			{"State" : "ap_ST_fsm_state6", "FSM" : "ap_CS_fsm", "SubInstance" : "grp_KeccakP1600_Permute_1_fu_199"},
+			{"State" : "ap_ST_fsm_state12", "FSM" : "ap_CS_fsm", "SubInstance" : "grp_KeccakP1600_Permute_1_fu_199"},
+			{"State" : "ap_ST_fsm_state9", "FSM" : "ap_CS_fsm", "SubInstance" : "grp_KeccakP1600_Permute_1_fu_199"},
+			{"State" : "ap_ST_fsm_state11", "FSM" : "ap_CS_fsm", "SubInstance" : "grp_KeccakP1600_ExtractB_2_fu_208"},
+			{"State" : "ap_ST_fsm_state15", "FSM" : "ap_CS_fsm", "SubInstance" : "grp_KeccakP1600_ExtractB_2_fu_208"}],
+		"Port" : [
+			{"Name" : "instance_state", "Type" : "Memory", "Direction" : "IO",
+				"SubConnect" : [
+					{"ID" : "30", "SubInstance" : "grp_KeccakP1600_ExtractB_2_fu_208", "Port" : "state"},
+					{"ID" : "27", "SubInstance" : "grp_KeccakP1600_Permute_1_fu_199", "Port" : "state"}]},
+			{"Name" : "instance_state_offset", "Type" : "None", "Direction" : "I"},
+			{"Name" : "instance_rate_read", "Type" : "None", "Direction" : "I"},
+			{"Name" : "instance_byteIOIndex_read", "Type" : "None", "Direction" : "I"},
+			{"Name" : "instance_squeezing_read", "Type" : "None", "Direction" : "I"},
+			{"Name" : "data", "Type" : "Memory", "Direction" : "IO",
+				"SubConnect" : [
+					{"ID" : "30", "SubInstance" : "grp_KeccakP1600_ExtractB_2_fu_208", "Port" : "data"}]},
+			{"Name" : "KeccakF1600RoundCons", "Type" : "Memory", "Direction" : "I",
+				"SubConnect" : [
+					{"ID" : "27", "SubInstance" : "grp_KeccakP1600_Permute_1_fu_199", "Port" : "KeccakF1600RoundCons"}]}]},
+	{"ID" : "27", "Level" : "3", "Path" : "`AUTOTB_DUT_INST.grp_Next_Column_fu_2117.grp_KeccakWidth1600_Spon_fu_247.grp_KeccakP1600_Permute_1_fu_199", "Parent" : "26", "Child" : ["28", "29"],
+		"CDFG" : "KeccakP1600_Permute_1",
+		"Protocol" : "ap_ctrl_hs",
+		"ControlExist" : "1", "ap_start" : "1", "ap_ready" : "1", "ap_done" : "1", "ap_continue" : "0", "ap_idle" : "1",
+		"Pipeline" : "None", "UnalignedPipeline" : "0", "RewindPipeline" : "0", "ProcessNetwork" : "0",
+		"II" : "0",
+		"VariableLatency" : "1", "ExactLatency" : "-1", "EstimateLatencyMin" : "869", "EstimateLatencyMax" : "869",
+		"Combinational" : "0",
+		"Datapath" : "0",
+		"ClockEnable" : "0",
+		"HasSubDataflow" : "0",
+		"InDataflowNetwork" : "0",
+		"HasNonBlockingOperation" : "0",
+		"Port" : [
+			{"Name" : "state", "Type" : "Memory", "Direction" : "IO"},
+			{"Name" : "state_offset", "Type" : "None", "Direction" : "I"},
+			{"Name" : "KeccakF1600RoundCons", "Type" : "Memory", "Direction" : "I"}]},
+	{"ID" : "28", "Level" : "4", "Path" : "`AUTOTB_DUT_INST.grp_Next_Column_fu_2117.grp_KeccakWidth1600_Spon_fu_247.grp_KeccakP1600_Permute_1_fu_199.KeccakF1600RoundCons_U", "Parent" : "27"},
+	{"ID" : "29", "Level" : "4", "Path" : "`AUTOTB_DUT_INST.grp_Next_Column_fu_2117.grp_KeccakWidth1600_Spon_fu_247.grp_KeccakP1600_Permute_1_fu_199.stateAsLanes2_U", "Parent" : "27"},
+	{"ID" : "30", "Level" : "3", "Path" : "`AUTOTB_DUT_INST.grp_Next_Column_fu_2117.grp_KeccakWidth1600_Spon_fu_247.grp_KeccakP1600_ExtractB_2_fu_208", "Parent" : "26", "Child" : ["31"],
+		"CDFG" : "KeccakP1600_ExtractB_2",
+		"Protocol" : "ap_ctrl_hs",
+		"ControlExist" : "1", "ap_start" : "1", "ap_ready" : "1", "ap_done" : "1", "ap_continue" : "0", "ap_idle" : "1",
+		"Pipeline" : "None", "UnalignedPipeline" : "0", "RewindPipeline" : "0", "ProcessNetwork" : "0",
+		"II" : "0",
+		"VariableLatency" : "1", "ExactLatency" : "-1", "EstimateLatencyMin" : "-1", "EstimateLatencyMax" : "-1",
+		"Combinational" : "0",
+		"Datapath" : "0",
+		"ClockEnable" : "0",
+		"HasSubDataflow" : "0",
+		"InDataflowNetwork" : "0",
+		"HasNonBlockingOperation" : "0",
+		"WaitState" : [
+			{"State" : "ap_ST_fsm_state14", "FSM" : "ap_CS_fsm", "SubInstance" : "grp_KeccakP1600_ExtractL_fu_644"}],
+		"Port" : [
+			{"Name" : "state", "Type" : "Memory", "Direction" : "I",
+				"SubConnect" : [
+					{"ID" : "31", "SubInstance" : "grp_KeccakP1600_ExtractL_fu_644", "Port" : "state"}]},
+			{"Name" : "state_offset", "Type" : "None", "Direction" : "I"},
+			{"Name" : "data", "Type" : "Memory", "Direction" : "IO",
+				"SubConnect" : [
+					{"ID" : "31", "SubInstance" : "grp_KeccakP1600_ExtractL_fu_644", "Port" : "data"}]},
+			{"Name" : "data_offset", "Type" : "None", "Direction" : "I"},
+			{"Name" : "data_offset1", "Type" : "None", "Direction" : "I"},
+			{"Name" : "offset", "Type" : "None", "Direction" : "I"},
+			{"Name" : "length_r", "Type" : "None", "Direction" : "I"}]},
+	{"ID" : "31", "Level" : "4", "Path" : "`AUTOTB_DUT_INST.grp_Next_Column_fu_2117.grp_KeccakWidth1600_Spon_fu_247.grp_KeccakP1600_ExtractB_2_fu_208.grp_KeccakP1600_ExtractL_fu_644", "Parent" : "30",
+		"CDFG" : "KeccakP1600_ExtractL",
+		"Protocol" : "ap_ctrl_hs",
+		"ControlExist" : "1", "ap_start" : "1", "ap_ready" : "1", "ap_done" : "1", "ap_continue" : "0", "ap_idle" : "1",
+		"Pipeline" : "None", "UnalignedPipeline" : "0", "RewindPipeline" : "0", "ProcessNetwork" : "0",
+		"II" : "0",
+		"VariableLatency" : "1", "ExactLatency" : "-1", "EstimateLatencyMin" : "-1", "EstimateLatencyMax" : "-1",
+		"Combinational" : "0",
+		"Datapath" : "0",
+		"ClockEnable" : "0",
+		"HasSubDataflow" : "0",
+		"InDataflowNetwork" : "0",
+		"HasNonBlockingOperation" : "0",
+		"Port" : [
+			{"Name" : "state", "Type" : "Memory", "Direction" : "I"},
+			{"Name" : "state_offset", "Type" : "None", "Direction" : "I"},
+			{"Name" : "data", "Type" : "Memory", "Direction" : "IO"},
+			{"Name" : "data_offset", "Type" : "None", "Direction" : "I"},
+			{"Name" : "data_offset1", "Type" : "None", "Direction" : "I"},
+			{"Name" : "laneCount", "Type" : "None", "Direction" : "I"}]},
+	{"ID" : "32", "Level" : "1", "Path" : "`AUTOTB_DUT_INST.grp_xor_1_fu_2131", "Parent" : "0", "Child" : ["33"],
+		"CDFG" : "xor_1",
+		"Protocol" : "ap_ctrl_hs",
+		"ControlExist" : "1", "ap_start" : "1", "ap_ready" : "1", "ap_done" : "1", "ap_continue" : "0", "ap_idle" : "1",
+		"Pipeline" : "None", "UnalignedPipeline" : "0", "RewindPipeline" : "0", "ProcessNetwork" : "0",
+		"II" : "2",
+		"VariableLatency" : "0", "ExactLatency" : "1", "EstimateLatencyMin" : "1", "EstimateLatencyMax" : "1",
+		"Combinational" : "0",
+		"Datapath" : "0",
+		"ClockEnable" : "1",
+		"HasSubDataflow" : "0",
+		"InDataflowNetwork" : "0",
+		"HasNonBlockingOperation" : "0",
+		"Port" : [
+			{"Name" : "a_components", "Type" : "Memory", "Direction" : "IO"},
+			{"Name" : "a_components_offset", "Type" : "None", "Direction" : "I"},
+			{"Name" : "a_components_offset1", "Type" : "None", "Direction" : "I"},
+			{"Name" : "b_0_components", "Type" : "Memory", "Direction" : "I"},
+			{"Name" : "b_1_components", "Type" : "Memory", "Direction" : "I"},
+			{"Name" : "b_components_offset", "Type" : "None", "Direction" : "I"}]},
+	{"ID" : "33", "Level" : "2", "Path" : "`AUTOTB_DUT_INST.grp_xor_1_fu_2131.crypto_sign_keypair_mac_muladd_7ns_8ns_8ns_14_1_1_U134", "Parent" : "32"},
+	{"ID" : "34", "Level" : "1", "Path" : "`AUTOTB_DUT_INST.grp_xor_1_fu_2143", "Parent" : "0", "Child" : ["35"],
+		"CDFG" : "xor_1",
+		"Protocol" : "ap_ctrl_hs",
+		"ControlExist" : "1", "ap_start" : "1", "ap_ready" : "1", "ap_done" : "1", "ap_continue" : "0", "ap_idle" : "1",
+		"Pipeline" : "None", "UnalignedPipeline" : "0", "RewindPipeline" : "0", "ProcessNetwork" : "0",
+		"II" : "2",
+		"VariableLatency" : "0", "ExactLatency" : "1", "EstimateLatencyMin" : "1", "EstimateLatencyMax" : "1",
+		"Combinational" : "0",
+		"Datapath" : "0",
+		"ClockEnable" : "1",
+		"HasSubDataflow" : "0",
+		"InDataflowNetwork" : "0",
+		"HasNonBlockingOperation" : "0",
+		"Port" : [
+			{"Name" : "a_components", "Type" : "Memory", "Direction" : "IO"},
+			{"Name" : "a_components_offset", "Type" : "None", "Direction" : "I"},
+			{"Name" : "a_components_offset1", "Type" : "None", "Direction" : "I"},
+			{"Name" : "b_0_components", "Type" : "Memory", "Direction" : "I"},
+			{"Name" : "b_1_components", "Type" : "Memory", "Direction" : "I"},
+			{"Name" : "b_components_offset", "Type" : "None", "Direction" : "I"}]},
+	{"ID" : "35", "Level" : "2", "Path" : "`AUTOTB_DUT_INST.grp_xor_1_fu_2143.crypto_sign_keypair_mac_muladd_7ns_8ns_8ns_14_1_1_U134", "Parent" : "34"},
+	{"ID" : "36", "Level" : "1", "Path" : "`AUTOTB_DUT_INST.grp_xor_2_fu_2157", "Parent" : "0",
+		"CDFG" : "xor_2",
+		"Protocol" : "ap_ctrl_hs",
+		"ControlExist" : "1", "ap_start" : "1", "ap_ready" : "1", "ap_done" : "1", "ap_continue" : "0", "ap_idle" : "1",
+		"Pipeline" : "None", "UnalignedPipeline" : "0", "RewindPipeline" : "0", "ProcessNetwork" : "0",
+		"II" : "2",
+		"VariableLatency" : "0", "ExactLatency" : "1", "EstimateLatencyMin" : "1", "EstimateLatencyMax" : "1",
+		"Combinational" : "0",
+		"Datapath" : "0",
+		"ClockEnable" : "1",
+		"HasSubDataflow" : "0",
+		"InDataflowNetwork" : "0",
+		"HasNonBlockingOperation" : "0",
+		"Port" : [
+			{"Name" : "a_0_components", "Type" : "Memory", "Direction" : "IO"},
+			{"Name" : "a_1_components", "Type" : "Memory", "Direction" : "IO"},
+			{"Name" : "a_components_offset", "Type" : "None", "Direction" : "I"},
+			{"Name" : "p_read", "Type" : "None", "Direction" : "I"},
+			{"Name" : "p_read1", "Type" : "None", "Direction" : "I"}]},
+	{"ID" : "37", "Level" : "1", "Path" : "`AUTOTB_DUT_INST.grp_xor_2_fu_2166", "Parent" : "0",
+		"CDFG" : "xor_2",
+		"Protocol" : "ap_ctrl_hs",
+		"ControlExist" : "1", "ap_start" : "1", "ap_ready" : "1", "ap_done" : "1", "ap_continue" : "0", "ap_idle" : "1",
+		"Pipeline" : "None", "UnalignedPipeline" : "0", "RewindPipeline" : "0", "ProcessNetwork" : "0",
+		"II" : "2",
+		"VariableLatency" : "0", "ExactLatency" : "1", "EstimateLatencyMin" : "1", "EstimateLatencyMax" : "1",
+		"Combinational" : "0",
+		"Datapath" : "0",
+		"ClockEnable" : "1",
+		"HasSubDataflow" : "0",
+		"InDataflowNetwork" : "0",
+		"HasNonBlockingOperation" : "0",
+		"Port" : [
+			{"Name" : "a_0_components", "Type" : "Memory", "Direction" : "IO"},
+			{"Name" : "a_1_components", "Type" : "Memory", "Direction" : "IO"},
+			{"Name" : "a_components_offset", "Type" : "None", "Direction" : "I"},
+			{"Name" : "p_read", "Type" : "None", "Direction" : "I"},
+			{"Name" : "p_read1", "Type" : "None", "Direction" : "I"}]}]}
+
+
+set ArgLastReadFirstWriteLatency {
+	calculateQ2 {
+		T_components {Type I LastRead 8 FirstWrite -1}
+		pk {Type IO LastRead 45 FirstWrite -1}
+		KeccakF1600RoundCons {Type I LastRead -1 FirstWrite -1}}
+	ColumnGenerator_init {
+		col_gen_states_spong {Type IO LastRead 9 FirstWrite -1}
+		col_gen_states_spong_18 {Type IO LastRead 5 FirstWrite 3}
+		col_gen_states_spong_19 {Type O LastRead -1 FirstWrite 3}
+		col_gen_states_spong_20 {Type IO LastRead 5 FirstWrite 3}
+		col_gen_states_fixed {Type O LastRead -1 FirstWrite 3}
+		col_gen_states_delim {Type O LastRead -1 FirstWrite 3}
+		key {Type I LastRead 3 FirstWrite -1}
+		KeccakF1600RoundCons {Type I LastRead -1 FirstWrite -1}}
+	KeccakWidth1600_Spon_2 {
+		instance_state {Type IO LastRead 2 FirstWrite -1}
+		instance_state_offset {Type I LastRead 0 FirstWrite -1}
+		instance_rate_read {Type I LastRead 0 FirstWrite -1}
+		instance_byteIOIndex_read {Type I LastRead 0 FirstWrite -1}
+		instance_squeezing_read {Type I LastRead 0 FirstWrite -1}
+		data {Type I LastRead 3 FirstWrite -1}
+		KeccakF1600RoundCons {Type I LastRead -1 FirstWrite -1}}
+	KeccakP1600_Permute_1 {
+		state {Type IO LastRead 2 FirstWrite 30}
+		state_offset {Type I LastRead 0 FirstWrite -1}
+		KeccakF1600RoundCons {Type I LastRead -1 FirstWrite -1}}
+	KeccakP1600_AddBytes_2 {
+		state {Type IO LastRead 1 FirstWrite 2}
+		state_offset {Type I LastRead 0 FirstWrite -1}
+		data {Type I LastRead 3 FirstWrite -1}
+		data_offset {Type I LastRead 0 FirstWrite -1}
+		offset {Type I LastRead 0 FirstWrite -1}
+		length_r {Type I LastRead 0 FirstWrite -1}}
+	KeccakF1600_FastLoop {
+		state {Type I LastRead 2 FirstWrite -1}
+		state_offset {Type I LastRead 0 FirstWrite -1}}
+	KeccakP1600_Permute_1 {
+		state {Type IO LastRead 2 FirstWrite 30}
+		state_offset {Type I LastRead 0 FirstWrite -1}
+		KeccakF1600RoundCons {Type I LastRead -1 FirstWrite -1}}
+	KeccakP1600_Initiali_1 {
+		state {Type O LastRead -1 FirstWrite 1}
+		state_offset {Type I LastRead 0 FirstWrite -1}}
+	KeccakP1600_AddBytes_1 {
+		state {Type IO LastRead 1 FirstWrite 2}
+		state_offset {Type I LastRead 0 FirstWrite -1}
+		data {Type I LastRead 3 FirstWrite -1}
+		data_offset {Type I LastRead 0 FirstWrite -1}
+		offset {Type I LastRead 0 FirstWrite -1}
+		length_r {Type I LastRead 0 FirstWrite -1}}
+	Next_Column {
+		col_gen_states_spong {Type IO LastRead 6 FirstWrite -1}
+		col_gen_states_spong_5 {Type I LastRead 1 FirstWrite -1}
+		col_gen_states_spong_6 {Type IO LastRead 1 FirstWrite 4}
+		col_gen_states_spong_7 {Type IO LastRead 1 FirstWrite 4}
+		col_gen_blocks {Type IO LastRead 45 FirstWrite 2}
+		col_gen_cols_used_re {Type I LastRead 0 FirstWrite -1}
+		KeccakF1600RoundCons {Type I LastRead -1 FirstWrite -1}}
+	KeccakWidth1600_Spon {
+		instance_state {Type IO LastRead 6 FirstWrite -1}
+		instance_state_offset {Type I LastRead 0 FirstWrite -1}
+		instance_rate_read {Type I LastRead 0 FirstWrite -1}
+		instance_byteIOIndex_read {Type I LastRead 0 FirstWrite -1}
+		instance_squeezing_read {Type I LastRead 0 FirstWrite -1}
+		data {Type IO LastRead 45 FirstWrite 2}
+		KeccakF1600RoundCons {Type I LastRead -1 FirstWrite -1}}
+	KeccakP1600_Permute_1 {
+		state {Type IO LastRead 2 FirstWrite 30}
+		state_offset {Type I LastRead 0 FirstWrite -1}
+		KeccakF1600RoundCons {Type I LastRead -1 FirstWrite -1}}
+	KeccakP1600_ExtractB_2 {
+		state {Type I LastRead 6 FirstWrite -1}
+		state_offset {Type I LastRead 0 FirstWrite -1}
+		data {Type IO LastRead 45 FirstWrite 2}
+		data_offset {Type I LastRead 0 FirstWrite -1}
+		data_offset1 {Type I LastRead 0 FirstWrite -1}
+		offset {Type I LastRead 0 FirstWrite -1}
+		length_r {Type I LastRead 0 FirstWrite -1}}
+	KeccakP1600_ExtractL {
+		state {Type I LastRead 1 FirstWrite -1}
+		state_offset {Type I LastRead 0 FirstWrite -1}
+		data {Type IO LastRead 45 FirstWrite 2}
+		data_offset {Type I LastRead 0 FirstWrite -1}
+		data_offset1 {Type I LastRead 0 FirstWrite -1}
+		laneCount {Type I LastRead 0 FirstWrite -1}}
+	xor_1 {
+		a_components {Type IO LastRead 1 FirstWrite 1}
+		a_components_offset {Type I LastRead 0 FirstWrite -1}
+		a_components_offset1 {Type I LastRead 0 FirstWrite -1}
+		b_0_components {Type I LastRead 0 FirstWrite -1}
+		b_1_components {Type I LastRead 0 FirstWrite -1}
+		b_components_offset {Type I LastRead 0 FirstWrite -1}}
+	xor_1 {
+		a_components {Type IO LastRead 1 FirstWrite 1}
+		a_components_offset {Type I LastRead 0 FirstWrite -1}
+		a_components_offset1 {Type I LastRead 0 FirstWrite -1}
+		b_0_components {Type I LastRead 0 FirstWrite -1}
+		b_1_components {Type I LastRead 0 FirstWrite -1}
+		b_components_offset {Type I LastRead 0 FirstWrite -1}}
+	xor_2 {
+		a_0_components {Type IO LastRead 0 FirstWrite 1}
+		a_1_components {Type IO LastRead 0 FirstWrite 1}
+		a_components_offset {Type I LastRead 0 FirstWrite -1}
+		p_read {Type I LastRead 1 FirstWrite -1}
+		p_read1 {Type I LastRead 1 FirstWrite -1}}
+	xor_2 {
+		a_0_components {Type IO LastRead 0 FirstWrite 1}
+		a_1_components {Type IO LastRead 0 FirstWrite 1}
+		a_components_offset {Type I LastRead 0 FirstWrite -1}
+		p_read {Type I LastRead 1 FirstWrite -1}
+		p_read1 {Type I LastRead 1 FirstWrite -1}}}
+
+set hasDtUnsupportedChannel 0
+
+set PerformanceInfo {[
+	{"Name" : "Latency", "Min" : "-1", "Max" : "-1"}
+	, {"Name" : "Interval", "Min" : "-1", "Max" : "-1"}
+]}
+
+set PipelineEnableSignalInfo {[
+	{"Pipeline" : "1", "EnableSignal" : "ap_enable_pp1"}
+	{"Pipeline" : "2", "EnableSignal" : "ap_enable_pp2"}
+	{"Pipeline" : "3", "EnableSignal" : "ap_enable_pp3"}
+	{"Pipeline" : "4", "EnableSignal" : "ap_enable_pp4"}
+]}
+
+set Spec2ImplPortList { 
+	T_components { ap_memory {  { T_components_address0 mem_address 1 10 }  { T_components_ce0 mem_ce 1 1 }  { T_components_q0 mem_dout 0 64 }  { T_components_address1 MemPortADDR2 1 10 }  { T_components_ce1 MemPortCE2 1 1 }  { T_components_q1 MemPortDOUT2 0 64 } } }
+	pk { ap_memory {  { pk_address0 mem_address 1 17 }  { pk_ce0 mem_ce 1 1 }  { pk_we0 mem_we 1 1 }  { pk_d0 mem_din 1 8 }  { pk_q0 mem_dout 0 8 } } }
+}

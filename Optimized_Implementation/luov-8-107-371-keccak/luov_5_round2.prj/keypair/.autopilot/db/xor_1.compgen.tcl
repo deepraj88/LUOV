@@ -1,7 +1,7 @@
 # This script segment is generated automatically by AutoPilot
 
 set id 134
-set name crypto_sign_keypair_mac_muladd_7ns_8ns_7ns_14_1_1
+set name crypto_sign_keypair_mac_muladd_7ns_8ns_8ns_14_1_1
 set corename simcore_mac
 set op mac
 set stage_num 1
@@ -11,11 +11,11 @@ set in0_width 7
 set in0_signed 0
 set in1_width 8
 set in1_signed 0
-set in2_width 7
+set in2_width 8
 set in2_signed 0
 set out_width 14
 set exp i0*i1+i2
-set arg_lists {i0 {7 0 +} i1 {8 0 +} m {14 0 +} i2 {7 0 +} p {14 0 +} c_reg {1} rnd {0} acc {0} }
+set arg_lists {i0 {7 0 +} i1 {8 0 +} m {14 0 +} i2 {8 0 +} p {14 0 +} c_reg {1} rnd {0} acc {0} }
 set TrueReset 0
 if {${::AESL::PGuard_simmodel_gen}} {
 if {[info proc ap_gen_simcore_mac] == "ap_gen_simcore_mac"} {
@@ -172,7 +172,7 @@ eval "cg_default_interface_gen_dc { \
     sync_rst true \
     corename dc_a_components_offset1 \
     op interface \
-    ports { a_components_offset1 { I 7 vector } } \
+    ports { a_components_offset1 { I 8 vector } } \
 } "
 }
 
