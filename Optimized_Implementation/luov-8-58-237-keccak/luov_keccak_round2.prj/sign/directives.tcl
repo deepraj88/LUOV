@@ -3,9 +3,9 @@
 ## Please DO NOT edit it.
 ## Copyright (C) 1986-2018 Xilinx, Inc. All Rights Reserved.
 ############################################################
-set_directive_unroll -factor 1 "crypto_sign/crypto_sign_label8"
+set_directive_unroll -factor 128 "crypto_sign/crypto_sign_label8"
 set_directive_pipeline "crypto_sign/crypto_sign_label8"
-set_directive_unroll -factor 1 "crypto_sign/crypto_sign_label9"
+set_directive_unroll -factor 128 "crypto_sign/crypto_sign_label9"
 set_directive_pipeline "crypto_sign/crypto_sign_label9"
 set_directive_unroll -factor 128 "Next_Column/Next_Column_label6"
 set_directive_inline "Next_Column/Next_Column_label6"

@@ -42,4 +42,7 @@ Post-Quantum Cryptographic Signature schemes},
  ![debug_mode](./Hw_Implementation_Docs/debug_mode.png)
  ![debug_mode_2](./Hw_Implementation_Docs/debug_mode_2.png)
 
-
+### Synthesis
+* Expose the global variables for synthesis.
+ ![synth_setting](./Hw_Implementation_Docs/solution_settings.png)
+ ![synth)setting2](./Hw_Implementation_Docs/expose_global.png)
