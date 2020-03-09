@@ -44,5 +44,6 @@ Post-Quantum Cryptographic Signature schemes},
 
 ### Synthesis
 * Expose the global variables for synthesis.
+* solution settings -> General -> Add/Edit -> config_interface -> expose_global
  ![synth_setting](./Hw_Implementation_Docs/solution_settings.png)
  ![synth)setting2](./Hw_Implementation_Docs/expose_global.png)
